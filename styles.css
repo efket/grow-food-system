@@ -358,6 +358,12 @@ cite {
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--text-soft);
+  text-decoration: none;
+}
+
+.hero-rating-text:hover {
+  color: var(--accent);
+  text-decoration: underline;
 }
 
 .hero-quote {
@@ -369,6 +375,16 @@ cite {
   color: var(--text-soft);
   max-width: 42ch;
   line-height: 1.55;
+}
+
+.hero-quote cite {
+  display: block;
+  margin-top: 0.3rem;
+  font-style: normal;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.01em;
 }
 
 /* ─── Hero Stage ─── */
