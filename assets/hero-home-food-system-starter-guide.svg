@@ -1,0 +1,87 @@
+<svg width="1400" height="1040" viewBox="0 0 1400 1040" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="190" y1="80" x2="1160" y2="970" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FCFDF9"/>
+      <stop offset="1" stop-color="#ECF3EA"/>
+    </linearGradient>
+    <linearGradient id="cover" x1="510" y1="172" x2="908" y2="816" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F4F8F2"/>
+    </linearGradient>
+    <filter id="shadow" x="310" y="102" width="770" height="818" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="24"/>
+      <feGaussianBlur stdDeviation="40"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.0627451 0 0 0 0 0.176471 0 0 0 0 0.105882 0 0 0 0.12 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_1"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_1" result="shape"/>
+    </filter>
+    <filter id="panelShadow" x="80" y="164" width="350" height="330" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="18"/>
+      <feGaussianBlur stdDeviation="24"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.0627451 0 0 0 0 0.176471 0 0 0 0 0.105882 0 0 0 0.08 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_1"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_1" result="shape"/>
+    </filter>
+  </defs>
+  <rect width="1400" height="1040" rx="40" fill="url(#bg)"/>
+  <circle cx="1096" cy="246" r="162" stroke="#D6E3D4"/>
+  <circle cx="1156" cy="306" r="112" stroke="#DDE8DB"/>
+  <circle cx="272" cy="816" r="168" fill="#E9F1E7"/>
+  <g filter="url(#panelShadow)">
+    <rect x="128" y="194" width="254" height="234" rx="28" fill="white" fill-opacity="0.94"/>
+    <rect x="128.5" y="194.5" width="253" height="233" rx="27.5" stroke="#D9E2D8"/>
+    <text x="160" y="238" fill="#1F5B39" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="3">STARTER CHECKLIST</text>
+    <circle cx="170" cy="289" r="9" fill="#1F5B39"/>
+    <text x="196" y="297" fill="#162017" font-family="Arial, Helvetica, sans-serif" font-size="26">Map your available space</text>
+    <circle cx="170" cy="337" r="9" fill="#1F5B39"/>
+    <text x="196" y="345" fill="#162017" font-family="Arial, Helvetica, sans-serif" font-size="26">Choose useful first crops</text>
+    <circle cx="170" cy="385" r="9" fill="#1F5B39"/>
+    <text x="196" y="393" fill="#162017" font-family="Arial, Helvetica, sans-serif" font-size="26">Avoid common mistakes</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="390" y="158" width="620" height="668" rx="36" fill="url(#cover)"/>
+    <rect x="390.5" y="158.5" width="619" height="667" rx="35.5" stroke="#D9E2D8"/>
+    <rect x="438" y="206" width="196" height="44" rx="22" fill="#DFEADE"/>
+    <text x="472" y="234" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" letter-spacing="2">FREE STARTER GUIDE</text>
+    <text x="438" y="308" fill="#1F5B39" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" letter-spacing="4">GROW FOOD SYSTEM</text>
+    <text x="438" y="390" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="62" font-weight="700">Home Food System</text>
+    <text x="438" y="462" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="62" font-weight="700">Starter Guide</text>
+    <text x="438" y="524" fill="#344137" font-family="Arial, Helvetica, sans-serif" font-size="28">Plan your space, choose productive first crops,</text>
+    <text x="438" y="562" fill="#344137" font-family="Arial, Helvetica, sans-serif" font-size="28">and build a practical setup that can grow over time.</text>
+
+    <rect x="438" y="620" width="156" height="114" rx="24" fill="#F8FAF7"/>
+    <rect x="438.5" y="620.5" width="155" height="113" rx="23.5" stroke="#D9E2D8"/>
+    <text x="464" y="654" fill="#1F5B39" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="2">MODULE 1</text>
+    <text x="464" y="700" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Space</text>
+    <text x="464" y="734" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">planning</text>
+
+    <rect x="622" y="620" width="156" height="114" rx="24" fill="#F8FAF7"/>
+    <rect x="622.5" y="620.5" width="155" height="113" rx="23.5" stroke="#D9E2D8"/>
+    <text x="648" y="654" fill="#1F5B39" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="2">MODULE 2</text>
+    <text x="648" y="700" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">First</text>
+    <text x="648" y="734" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">crops</text>
+
+    <rect x="806" y="620" width="156" height="114" rx="24" fill="#F8FAF7"/>
+    <rect x="806.5" y="620.5" width="155" height="113" rx="23.5" stroke="#D9E2D8"/>
+    <text x="832" y="654" fill="#1F5B39" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="2">MODULE 3</text>
+    <text x="832" y="700" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Build</text>
+    <text x="832" y="734" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">over time</text>
+  </g>
+  <g filter="url(#panelShadow)">
+    <rect x="1018" y="184" width="238" height="216" rx="28" fill="white" fill-opacity="0.94"/>
+    <rect x="1018.5" y="184.5" width="237" height="215" rx="27.5" stroke="#D9E2D8"/>
+    <text x="1050" y="228" fill="#1F5B39" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="3">FRAMEWORK</text>
+    <rect x="1050" y="256" width="74" height="42" rx="21" fill="#F1F5F0"/>
+    <rect x="1140" y="256" width="74" height="42" rx="21" fill="#F1F5F0"/>
+    <rect x="1050" y="312" width="74" height="42" rx="21" fill="#F1F5F0"/>
+    <rect x="1140" y="312" width="74" height="42" rx="21" fill="#F1F5F0"/>
+    <text x="1071" y="282" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">Plan</text>
+    <text x="1162" y="282" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">Grow</text>
+    <text x="1078" y="338" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">Use</text>
+    <text x="1155" y="338" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">Expand</text>
+  </g>
+</svg>

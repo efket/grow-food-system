@@ -1,0 +1,50 @@
+<svg width="1400" height="900" viewBox="0 0 1400 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1400" height="900" rx="40" fill="#F8FBF7"/>
+  <rect x="88" y="88" width="1224" height="724" rx="34" fill="white"/>
+  <rect x="88.5" y="88.5" width="1223" height="723" rx="33.5" stroke="#D9E2D8"/>
+  <text x="148" y="158" fill="#1F5B39" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="4">SYSTEM ROADMAP</text>
+  <text x="148" y="232" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="700">From first setup to fuller home food system</text>
+  <line x1="240" y1="456" x2="1160" y2="456" stroke="#D9E2D8" stroke-width="10" stroke-linecap="round"/>
+
+  <circle cx="288" cy="456" r="58" fill="#1F5B39"/>
+  <text x="264" y="470" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">01</text>
+  <rect x="186" y="532" width="204" height="188" rx="28" fill="#F8FAF7"/>
+  <rect x="186.5" y="532.5" width="203" height="187" rx="27.5" stroke="#D9E2D8"/>
+  <text x="238" y="590" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">Plan</text>
+  <text x="218" y="640" fill="#344137" font-family="Arial, Helvetica, sans-serif" font-size="24">Start around your</text>
+  <text x="210" y="672" fill="#344137" font-family="Arial, Helvetica, sans-serif" font-size="24">space, time, and routine.</text>
+
+  <circle cx="566" cy="456" r="58" fill="#1F5B39"/>
+  <text x="542" y="470" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">02</text>
+  <rect x="464" y="532" width="204" height="188" rx="28" fill="#F8FAF7"/>
+  <rect x="464.5" y="532.5" width="203" height="187" rx="27.5" stroke="#D9E2D8"/>
+  <text x="513" y="590" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">Grow</text>
+  <text x="494" y="640" fill="#344137" font-family="Arial, Helvetica, sans-serif" font-size="24">Focus on productive</text>
+  <text x="500" y="672" fill="#344137" font-family="Arial, Helvetica, sans-serif" font-size="24">early wins first.</text>
+
+  <circle cx="844" cy="456" r="58" fill="#1F5B39"/>
+  <text x="820" y="470" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">03</text>
+  <rect x="742" y="532" width="204" height="188" rx="28" fill="#F8FAF7"/>
+  <rect x="742.5" y="532.5" width="203" height="187" rx="27.5" stroke="#D9E2D8"/>
+  <text x="801" y="590" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">Use</text>
+  <text x="780" y="640" fill="#344137" font-family="Arial, Helvetica, sans-serif" font-size="24">Build around food</text>
+  <text x="773" y="672" fill="#344137" font-family="Arial, Helvetica, sans-serif" font-size="24">you will actually use.</text>
+
+  <circle cx="1122" cy="456" r="58" fill="#1F5B39"/>
+  <text x="1098" y="470" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">04</text>
+  <rect x="1020" y="532" width="204" height="188" rx="28" fill="#F8FAF7"/>
+  <rect x="1020.5" y="532.5" width="203" height="187" rx="27.5" stroke="#D9E2D8"/>
+  <text x="1055" y="590" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">Expand</text>
+  <text x="1064" y="640" fill="#344137" font-family="Arial, Helvetica, sans-serif" font-size="24">Grow into a fuller</text>
+  <text x="1044" y="672" fill="#344137" font-family="Arial, Helvetica, sans-serif" font-size="24">system when ready.</text>
+
+  <rect x="148" y="284" width="402" height="104" rx="24" fill="#F1F5F0"/>
+  <rect x="148.5" y="284.5" width="401" height="103" rx="23.5" stroke="#D9E2D8"/>
+  <text x="182" y="325" fill="#1F5B39" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="3">STARTER FOCUS</text>
+  <text x="182" y="366" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Plan around real life from the start.</text>
+
+  <rect x="852" y="284" width="400" height="104" rx="24" fill="#F1F5F0"/>
+  <rect x="852.5" y="284.5" width="399" height="103" rx="23.5" stroke="#D9E2D8"/>
+  <text x="886" y="325" fill="#1F5B39" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="3">BOOK-BACKED THINKING</text>
+  <text x="886" y="366" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Build in layers, not all at once.</text>
+</svg>

@@ -1,0 +1,43 @@
+<svg width="1400" height="900" viewBox="0 0 1400 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1400" height="900" rx="40" fill="#F8FBF7"/>
+  <rect x="88" y="88" width="292" height="724" rx="34" fill="#1F5B39"/>
+  <text x="132" y="156" fill="#DCE8DB" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="4">INSIDE THE GUIDE</text>
+  <text x="132" y="262" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="700">Practical</text>
+  <text x="132" y="326" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="700">starter</text>
+  <text x="132" y="390" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="700">system</text>
+  <text x="132" y="484" fill="#DCE8DB" font-family="Arial, Helvetica, sans-serif" font-size="30">Built to help beginners make</text>
+  <text x="132" y="522" fill="#DCE8DB" font-family="Arial, Helvetica, sans-serif" font-size="30">better first decisions with</text>
+  <text x="132" y="560" fill="#DCE8DB" font-family="Arial, Helvetica, sans-serif" font-size="30">less wasted effort.</text>
+
+  <rect x="430" y="88" width="882" height="724" rx="34" fill="white"/>
+  <rect x="430.5" y="88.5" width="881" height="723" rx="33.5" stroke="#D9E2D8"/>
+  <text x="490" y="156" fill="#1F5B39" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="4">GUIDE PREVIEW</text>
+  <text x="490" y="224" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="700">Inside the guide</text>
+
+  <rect x="490" y="286" width="236" height="266" rx="28" fill="#F8FAF7"/>
+  <rect x="490.5" y="286.5" width="235" height="265" rx="27.5" stroke="#D9E2D8"/>
+  <text x="524" y="338" fill="#1F5B39" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" letter-spacing="3">SPACE PLANNING</text>
+  <text x="524" y="418" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">Work out what</text>
+  <text x="524" y="458" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">fits your home</text>
+  <text x="524" y="510" fill="#344137" font-family="Arial, Helvetica, sans-serif" font-size="24">Before you plant.</text>
+
+  <rect x="752" y="286" width="236" height="266" rx="28" fill="#F8FAF7"/>
+  <rect x="752.5" y="286.5" width="235" height="265" rx="27.5" stroke="#D9E2D8"/>
+  <text x="786" y="338" fill="#1F5B39" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" letter-spacing="3">FIRST CROPS</text>
+  <text x="786" y="418" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">Choose useful,</text>
+  <text x="786" y="458" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">beginner-friendly</text>
+  <text x="786" y="510" fill="#344137" font-family="Arial, Helvetica, sans-serif" font-size="24">crops that build confidence.</text>
+
+  <rect x="1014" y="286" width="236" height="266" rx="28" fill="#F8FAF7"/>
+  <rect x="1014.5" y="286.5" width="235" height="265" rx="27.5" stroke="#D9E2D8"/>
+  <text x="1048" y="338" fill="#1F5B39" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" letter-spacing="3">BUILD OVER TIME</text>
+  <text x="1048" y="418" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">Grow into using,</text>
+  <text x="1048" y="458" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">preserving, and</text>
+  <text x="1048" y="498" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">improving what</text>
+  <text x="1048" y="538" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">you produce.</text>
+
+  <rect x="490" y="608" width="760" height="134" rx="26" fill="#F4F8F2"/>
+  <rect x="490.5" y="608.5" width="759" height="133" rx="25.5" stroke="#D9E2D8"/>
+  <text x="530" y="656" fill="#1F5B39" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="3">APPROACH</text>
+  <text x="530" y="708" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">Simple enough for beginners, structured enough to build on later.</text>
+</svg>

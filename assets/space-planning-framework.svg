@@ -1,0 +1,43 @@
+<svg width="1400" height="900" viewBox="0 0 1400 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1400" height="900" rx="40" fill="#F8FBF7"/>
+  <rect x="88" y="88" width="1224" height="724" rx="34" fill="white"/>
+  <rect x="88.5" y="88.5" width="1223" height="723" rx="33.5" stroke="#D9E2D8"/>
+  <text x="148" y="156" fill="#1F5B39" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="4">BUILT AROUND YOUR SPACE</text>
+  <text x="148" y="228" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="700">One framework, different starting points</text>
+
+  <rect x="148" y="296" width="340" height="250" rx="30" fill="#F8FAF7"/>
+  <rect x="148.5" y="296.5" width="339" height="249" rx="29.5" stroke="#D9E2D8"/>
+  <text x="186" y="344" fill="#1F5B39" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="3">SMALL SPACE</text>
+  <text x="186" y="418" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">Keep it compact</text>
+  <text x="186" y="476" fill="#344137" font-family="Arial, Helvetica, sans-serif" font-size="26">Prioritise a simple setup,</text>
+  <text x="186" y="510" fill="#344137" font-family="Arial, Helvetica, sans-serif" font-size="26">fast wins, and manageable</text>
+  <text x="186" y="544" fill="#344137" font-family="Arial, Helvetica, sans-serif" font-size="26">maintenance.</text>
+
+  <rect x="530" y="296" width="340" height="250" rx="30" fill="#F8FAF7"/>
+  <rect x="530.5" y="296.5" width="339" height="249" rx="29.5" stroke="#D9E2D8"/>
+  <text x="568" y="344" fill="#1F5B39" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="3">BACKYARD</text>
+  <text x="568" y="418" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">Build your core</text>
+  <text x="568" y="458" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">system</text>
+  <text x="568" y="516" fill="#344137" font-family="Arial, Helvetica, sans-serif" font-size="26">Combine useful crops,</text>
+  <text x="568" y="550" fill="#344137" font-family="Arial, Helvetica, sans-serif" font-size="26">better planning, and room</text>
+  <text x="568" y="584" fill="#344137" font-family="Arial, Helvetica, sans-serif" font-size="26">to expand gradually.</text>
+
+  <rect x="912" y="296" width="340" height="250" rx="30" fill="#F8FAF7"/>
+  <rect x="912.5" y="296.5" width="339" height="249" rx="29.5" stroke="#D9E2D8"/>
+  <text x="950" y="344" fill="#1F5B39" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="3">LARGER LAND</text>
+  <text x="950" y="418" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">Scale with</text>
+  <text x="950" y="458" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">intention</text>
+  <text x="950" y="516" fill="#344137" font-family="Arial, Helvetica, sans-serif" font-size="26">Start with the same</text>
+  <text x="950" y="550" fill="#344137" font-family="Arial, Helvetica, sans-serif" font-size="26">practical framework before</text>
+  <text x="950" y="584" fill="#344137" font-family="Arial, Helvetica, sans-serif" font-size="26">adding more complexity.</text>
+
+  <rect x="148" y="612" width="520" height="132" rx="26" fill="#FFFFFF"/>
+  <rect x="148.5" y="612.5" width="519" height="131" rx="25.5" stroke="#D9E2D8"/>
+  <text x="188" y="656" fill="#1F5B39" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="3">RANDOM ADVICE</text>
+  <text x="188" y="706" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700">Copy someone else's setup and hope it works.</text>
+
+  <rect x="732" y="612" width="520" height="132" rx="26" fill="#EEF3EC"/>
+  <rect x="732.5" y="612.5" width="519" height="131" rx="25.5" stroke="#D9E2D8"/>
+  <text x="772" y="656" fill="#1F5B39" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="3">SMARTER APPROACH</text>
+  <text x="772" y="706" fill="#102D1B" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700">Build around your own space, climate, time, and goals.</text>
+</svg>

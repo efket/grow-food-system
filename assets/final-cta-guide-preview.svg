@@ -1,0 +1,30 @@
+<svg width="1200" height="860" viewBox="0 0 1200 860" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="152" y1="64" x2="1058" y2="796" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#173D27"/>
+      <stop offset="1" stop-color="#1F5B39"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="860" rx="36" fill="url(#bg)"/>
+  <rect x="114" y="108" width="972" height="644" rx="30" fill="rgba(255,255,255,0.06)"/>
+  <rect x="114.5" y="108.5" width="971" height="643" rx="29.5" stroke="rgba(255,255,255,0.12)"/>
+
+  <rect x="170" y="164" width="860" height="278" rx="28" fill="rgba(255,255,255,0.08)"/>
+  <rect x="170.5" y="164.5" width="859" height="277" rx="27.5" stroke="rgba(255,255,255,0.14)"/>
+  <text x="224" y="214" fill="#DCE8DB" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="3">GROW FOOD SYSTEM</text>
+  <text x="224" y="296" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="700">Home Food System</text>
+  <text x="224" y="362" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="700">Starter Guide</text>
+  <text x="224" y="422" fill="#DCE8DB" font-family="Arial, Helvetica, sans-serif" font-size="28">Plan your setup. Grow productively. Build over time.</text>
+
+  <rect x="170" y="506" width="260" height="118" rx="22" fill="rgba(255,255,255,0.08)"/>
+  <rect x="170.5" y="506.5" width="259" height="117" rx="21.5" stroke="rgba(255,255,255,0.12)"/>
+  <text x="214" y="556" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Space planning map</text>
+
+  <rect x="470" y="506" width="260" height="118" rx="22" fill="rgba(255,255,255,0.08)"/>
+  <rect x="470.5" y="506.5" width="259" height="117" rx="21.5" stroke="rgba(255,255,255,0.12)"/>
+  <text x="502" y="556" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Productive first crops</text>
+
+  <rect x="770" y="506" width="260" height="118" rx="22" fill="rgba(255,255,255,0.08)"/>
+  <rect x="770.5" y="506.5" width="259" height="117" rx="21.5" stroke="rgba(255,255,255,0.12)"/>
+  <text x="806" y="556" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Build-forward checklist</text>
+</svg>
