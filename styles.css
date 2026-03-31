@@ -1441,21 +1441,35 @@ cite {
   }
 }
 
+/* ─── Responsive: 768px ─── */
+
+@media (max-width: 768px) {
+  .hero-stage {
+    min-height: 34rem;
+  }
+
+  .contrast-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .signup-grid {
+    gap: 2rem;
+  }
+
+  .contrast-grid {
+    gap: 2rem;
+  }
+}
+
 /* ─── Responsive: 720px ─── */
 
 @media (max-width: 720px) {
   .section {
-    padding: 4rem 0;
+    padding: 3.5rem 0;
   }
 
   .hero-section {
-    padding: 3rem 0 4rem;
-  }
-
-  .site-header__inner {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.75rem;
+    padding: 1.75rem 0 2.5rem;
   }
 
   .hero-copy h1 {
@@ -1481,8 +1495,11 @@ cite {
     overflow: visible;
   }
 
+  .mini-card--checklist {
+    display: none;
+  }
+
   .hero-photo,
-  .mini-card--checklist,
   .guide-mockup {
     position: relative;
     inset: auto;
@@ -1534,6 +1551,22 @@ cite {
     grid-template-columns: 1fr;
   }
 
+  .preview-card,
+  .step-card,
+  .space-card,
+  .faq-card {
+    min-height: 0;
+  }
+
+  .section-head,
+  .section-head.center {
+    margin-bottom: 1.75rem;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
   .final-block {
     padding: 1.75rem;
   }
@@ -1562,5 +1595,25 @@ cite {
 
   .signup-guide-panel {
     padding: 1.25rem;
+  }
+}
+
+/* ─── Responsive: 480px ─── */
+
+@media (max-width: 480px) {
+  .site-header .btn {
+    display: none;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(1.75rem, 9vw, 2.2rem);
+  }
+
+  .hero-quote {
+    display: none;
+  }
+
+  .signup-copy h2 {
+    font-size: clamp(1.6rem, 8vw, 2rem);
   }
 }
