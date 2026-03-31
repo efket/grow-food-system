@@ -954,12 +954,7 @@ cite {
 }
 
 .dim-card {
-  background: #ededea;
-  border-color: #d4d4cf;
-}
-
-.dim-card h3 {
-  color: #969690;
+  background: var(--bg);
 }
 
 .lit-card {
@@ -1387,7 +1382,7 @@ cite {
 }
 
 .review-stars {
-  color: var(--accent);
+  color: #d4a017;
   font-size: 1rem;
   letter-spacing: 0.05em;
 }
