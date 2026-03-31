@@ -954,16 +954,18 @@ cite {
 }
 
 .dim-card {
-  background: var(--surface-muted);
+  background: #ededea;
+  border-color: #d4d4cf;
 }
 
 .dim-card h3 {
-  color: var(--text-muted);
+  color: #969690;
 }
 
 .lit-card {
   background: linear-gradient(170deg, #e2ede0, #f0f6ee);
-  border-color: rgba(31, 91, 57, 0.22);
+  border-color: rgba(31, 91, 57, 0.4);
+  border-top: 3px solid var(--accent);
   box-shadow: 0 18px 44px rgba(16, 45, 27, 0.09);
 }
 
@@ -1485,7 +1487,7 @@ cite {
     font-size: clamp(1.85rem, 9vw, 2.6rem);
   }
 
-  /* Hero stage: switch to normal flow */
+  /* Hero stage: switch to normal flow — also covers 768px card clipping */
   .hero-stage {
     min-height: auto;
     padding: 1.25rem;
@@ -1503,7 +1505,7 @@ cite {
   .guide-mockup {
     position: relative;
     inset: auto;
-    width: auto;
+    width: 100%;
     transform: none;
     z-index: auto;
   }
@@ -1609,11 +1611,41 @@ cite {
     font-size: clamp(1.75rem, 9vw, 2.2rem);
   }
 
+  /* Fix 5: keep quote visible on mobile for social proof — shorten instead */
   .hero-quote {
-    display: none;
+    font-size: 0.875rem;
+    max-width: none;
   }
 
   .signup-copy h2 {
     font-size: clamp(1.6rem, 8vw, 2rem);
+  }
+
+  /* Fix 4: eyebrow wraps awkwardly — tighten letter-spacing */
+  .eyebrow {
+    letter-spacing: 0.06em;
+    font-size: 0.78rem;
+  }
+
+  /* Fix: body text too small on mobile */
+  body {
+    font-size: 1rem;
+  }
+
+  .preview-card p,
+  .step-card p,
+  .space-card p,
+  .faq-card p,
+  .contrast-list li,
+  .frustration-list li,
+  .section-head p,
+  .hero-lead,
+  .cred-copy p,
+  .signup-lead {
+    font-size: 1rem;
+  }
+
+  .signup-checklist li {
+    font-size: 1rem;
   }
 }
