@@ -956,6 +956,7 @@ cite {
 .dim-card {
   background: var(--bg);
   border-color: #8c8c86;
+  border-top: 4px solid #8c8c86;
 }
 
 .lit-card {
