@@ -1488,12 +1488,15 @@ cite {
 
   .hero-stage {
     min-height: auto;
-    padding: 1.5rem;
+    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1.25rem;
     overflow: visible;
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
   }
 
   .guide-mockup {
@@ -1578,7 +1581,7 @@ cite {
 
 @media (max-width: 768px) {
   .hero-stage {
-    min-height: 34rem;
+    min-height: auto;
   }
 
   .contrast-cards {
