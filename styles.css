@@ -614,6 +614,11 @@ cite {
   color: var(--accent-deep);
 }
 
+/* Module 4 hidden on desktop (photo overlay obscures it intentionally) — shown on mobile/tablet */
+.guide-module--desktop-hidden {
+  display: none;
+}
+
 .outcome-chips {
   display: flex;
   flex-wrap: wrap;
@@ -1507,6 +1512,10 @@ cite {
 
   .hero-photo {
     display: none;
+  }
+
+  .guide-module--desktop-hidden {
+    display: block;
   }
 
   .preview-grid {
