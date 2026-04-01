@@ -1739,9 +1739,14 @@ cite {
     white-space: nowrap;
   }
 
-  .outcome-chips li {
-    font-size: 0.72rem;
-    padding: 0.25rem 0.55rem;
+  .hero-stage {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .guide-mockup__body {
+    padding-left: 8px;
+    padding-right: 8px;
   }
 
   .chip-row li,
