@@ -1734,7 +1734,20 @@ cite {
 
 @media (max-width: 480px) {
   .site-header .btn {
-    display: none;
+    font-size: 0.72rem;
+    padding: 0.4rem 0.7rem;
+    white-space: nowrap;
+  }
+
+  .outcome-chips li {
+    font-size: 0.72rem;
+    padding: 0.25rem 0.55rem;
+  }
+
+  .chip-row li,
+  .chip-row span {
+    font-size: 0.78rem;
+    padding: 0.5rem 0.8rem;
   }
 
   .hero-copy h1 {
