@@ -1482,17 +1482,45 @@ cite {
   }
 
   .hero-stage {
-    min-height: 40rem;
+    min-height: auto;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    overflow: visible;
   }
 
   .guide-mockup {
-    left: 2.5rem;
-    width: min(22rem, calc(100% - 5rem));
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    max-width: 30rem;
+    transform: none;
+    z-index: auto;
+  }
+
+  .mini-card--checklist {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    width: auto;
+    max-width: 20rem;
   }
 
   .hero-photo {
-    width: 54%;
-    height: 60%;
+    position: relative;
+    bottom: auto;
+    right: auto;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+    border-radius: calc(var(--radius) - 8px);
+    border: 1px solid var(--line);
+  }
+
+  .hero-photo::after {
+    display: none;
   }
 
   .preview-grid {
@@ -1510,6 +1538,12 @@ cite {
   .cred-grid {
     grid-template-columns: 1fr;
     gap: 2.5rem;
+  }
+
+  .cred-card__cover img {
+    width: auto;
+    max-height: 22rem;
+    max-width: 100%;
   }
 
   .contrast-grid {
