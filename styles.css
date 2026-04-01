@@ -1486,6 +1486,7 @@ cite {
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 1.25rem;
     overflow: visible;
   }
@@ -1501,25 +1502,10 @@ cite {
   }
 
   .mini-card--checklist {
-    position: relative;
-    bottom: auto;
-    right: auto;
-    width: auto;
-    max-width: 20rem;
+    display: none;
   }
 
   .hero-photo {
-    position: relative;
-    bottom: auto;
-    right: auto;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16/9;
-    border-radius: calc(var(--radius) - 8px);
-    border: 1px solid var(--line);
-  }
-
-  .hero-photo::after {
     display: none;
   }
 
