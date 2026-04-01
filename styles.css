@@ -1750,7 +1750,8 @@ cite {
   }
 
   .chip-row li,
-  .chip-row span {
+  .chip-row span,
+  .outcome-chips li {
     font-size: 0.7rem;
     padding: 0.35rem 0.45rem;
   }
