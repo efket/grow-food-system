@@ -366,6 +366,11 @@ cite {
   color: var(--accent);
 }
 
+.affiliate-note {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
 .hero-quote {
   margin: 0 0 1.5rem;
   padding: 0;
