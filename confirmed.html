@@ -55,8 +55,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        padding: 2rem;
+        justify-content: flex-start;
+        padding: 3.5rem 1.5rem 4rem;
       }
 
       .card {
@@ -119,6 +119,132 @@
         font-size: 0.82rem;
         color: var(--text-soft);
       }
+
+      /* Upsell block */
+      .upsell {
+        background: #fff;
+        border-radius: var(--radius);
+        padding: 2.5rem 2.5rem;
+        max-width: 520px;
+        width: 100%;
+        margin-top: 1.5rem;
+        box-shadow: 0 2px 24px rgba(22, 48, 33, 0.08);
+        text-align: left;
+      }
+
+      .upsell-eyebrow {
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.75rem;
+      }
+
+      .upsell h2 {
+        font-family: Fraunces, Georgia, serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--accent-deep);
+        line-height: 1.25;
+        margin-bottom: 0.9rem;
+      }
+
+      .upsell .intro {
+        font-size: 1rem;
+        color: var(--text-soft);
+        line-height: 1.6;
+        margin-bottom: 1.25rem;
+      }
+
+      .upsell-items {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.9rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .upsell-items li {
+        display: flex;
+        gap: 0.6rem;
+        font-size: 0.95rem;
+        color: var(--text);
+        line-height: 1.45;
+      }
+
+      .upsell-items li::before {
+        content: "✓";
+        color: var(--accent);
+        font-weight: 700;
+        flex-shrink: 0;
+        margin-top: 0.05em;
+      }
+
+      .upsell-items li strong {
+        color: var(--accent-deep);
+      }
+
+      .upsell-price {
+        font-size: 0.9rem;
+        color: var(--text-soft);
+        margin-bottom: 1rem;
+      }
+
+      .upsell-price strong {
+        font-size: 1.3rem;
+        color: var(--accent-deep);
+        font-weight: 700;
+      }
+
+      .btn-upsell {
+        display: block;
+        background: var(--accent);
+        color: #fff;
+        font-family: inherit;
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 0.9rem 2rem;
+        border-radius: 50px;
+        text-decoration: none;
+        text-align: center;
+        transition: background 0.15s;
+        margin-bottom: 0.85rem;
+      }
+
+      .btn-upsell:hover { background: var(--accent-deep); }
+
+      .upsell-no-thanks {
+        display: block;
+        text-align: center;
+        font-size: 0.82rem;
+        color: var(--text-soft);
+        text-decoration: underline;
+        cursor: pointer;
+      }
+
+      .upsell-guarantee {
+        margin-top: 1.1rem;
+        padding-top: 1rem;
+        border-top: 1px solid #e8ede9;
+        font-size: 0.82rem;
+        color: var(--text-soft);
+        line-height: 1.5;
+        text-align: center;
+      }
+
+      .upsell-soft-note {
+        margin-top: 0.6rem;
+        font-size: 0.8rem;
+        color: #5f7a68;
+        text-align: center;
+        font-style: italic;
+      }
+
+      @media (max-width: 560px) {
+        .upsell { padding: 2rem 1.5rem; }
+        .upsell h2 { font-size: 1.3rem; }
+      }
     </style>
   </head>
   <body>
@@ -129,6 +255,24 @@
       <p>If you don't see it, check your spam folder and mark us as safe.</p>
       <a class="btn" href="/">Back to Grow Food System</a>
     </div>
+
+    <!-- Upsell: 30-Day Food System Action Kit — $27 -->
+    <div class="upsell" id="action-kit">
+      <p class="upsell-eyebrow">Optional next step</p>
+      <h2>Want the exact plan for your first 30 days?</h2>
+      <p class="intro">Your free guide is on its way. If you want a more structured, practical next step, the 30-Day Food System Action Kit gives you the tools to turn the guide into action over the next 30 days.</p>
+      <ul class="upsell-items">
+        <li><span><strong>30-Day Action Plan</strong> — a simple week-by-week plan from setup to confident early progress</span></li>
+        <li><span><strong>Space &amp; Planting Planner</strong> — map your space and match crops to your real conditions</span></li>
+        <li><span><strong>Seasonal Growing Calendar</strong> — know what to focus on, prepare, and review through the year</span></li>
+      </ul>
+      <p class="upsell-price"><strong>$27</strong> &mdash; instant download</p>
+      <!-- Replace STRIPE_CHECKOUT_URL with your Stripe payment link -->
+      <a class="btn-upsell" href="https://buy.stripe.com/14A9AUe1Lafy1xR8Qk97G00">Get the Action Kit</a>
+      <p class="upsell-guarantee">A simple one-time purchase with instant access after checkout.</p>
+      <p class="upsell-soft-note">Your free guide is still on its way to your inbox.</p>
+    </div>
+
     <p class="footer">&copy; Grow Food System 2026</p>
   </body>
 </html>

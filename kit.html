@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9QT6NR4CEK"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9QT6NR4CEK');
+      gtag('config', 'AW-18057221634');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="only light">
+    <title>Your Action Kit | Grow Food System</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="https://growfoodsystem.com/kit">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400;1,9..144,700&display=swap" rel="stylesheet">
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231f5b39'/%3E%3Cpath d='M19 39c0-12.8 12.1-20.2 26-21-1.4 10.5-8.3 24-26 21Z' fill='%23dfeade'/%3E%3Cpath d='M24 39c3.3-8.4 9.9-14.5 19.6-18.2' stroke='%23f7f7f2' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E"
+    >
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --bg: #f7f7f2;
+        --accent: #1f5b39;
+        --accent-deep: #102d1b;
+        --accent-soft: #dfeade;
+        --text: #162017;
+        --text-soft: #4a5e4d;
+        --radius: 28px;
+        --line: #e0e8e1;
+      }
+
+      html { color-scheme: only light; }
+
+      body {
+        font-family: "Avenir Next", "Avenir", system-ui, -apple-system, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 3.5rem 1.5rem 4rem;
+      }
+
+      .card {
+        background: #fff;
+        border-radius: var(--radius);
+        padding: 3rem 2.5rem;
+        max-width: 520px;
+        width: 100%;
+        box-shadow: 0 2px 24px rgba(22, 48, 33, 0.08);
+      }
+
+      .icon {
+        width: 64px;
+        height: 64px;
+        background: var(--accent-soft);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.75rem;
+        font-size: 1.75rem;
+      }
+
+      h1 {
+        font-family: Fraunces, Georgia, serif;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--accent-deep);
+        line-height: 1.2;
+        margin-bottom: 0.75rem;
+        text-align: center;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+        color: var(--text-soft);
+        line-height: 1.6;
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      /* Download items */
+      .downloads {
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+        margin-bottom: 1.75rem;
+      }
+
+      .download-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 1rem 1.25rem;
+        background: var(--bg);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        text-decoration: none;
+        color: var(--text);
+        transition: border-color 0.15s, background 0.15s;
+      }
+
+      .download-item:hover {
+        border-color: var(--accent);
+        background: var(--accent-soft);
+      }
+
+      .download-item__text {
+        flex: 1;
+      }
+
+      .download-item__label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.2rem;
+      }
+
+      .download-item__title {
+        font-size: 0.97rem;
+        font-weight: 600;
+        color: var(--accent-deep);
+        line-height: 1.35;
+        margin-bottom: 0.2rem;
+      }
+
+      .download-item__meta {
+        font-size: 0.75rem;
+        color: var(--text-soft);
+      }
+
+      .download-item__arrow {
+        flex-shrink: 0;
+        width: 36px;
+        height: 36px;
+        background: var(--accent);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 1rem;
+        transition: background 0.15s;
+      }
+
+      .download-item:hover .download-item__arrow {
+        background: var(--accent-deep);
+      }
+
+      .start-note {
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--line);
+        font-size: 0.88rem;
+        color: var(--text-soft);
+        line-height: 1.6;
+        text-align: center;
+      }
+
+      .start-note strong {
+        color: var(--accent-deep);
+      }
+
+      .footer {
+        margin-top: 2rem;
+        font-size: 0.82rem;
+        color: var(--text-soft);
+        text-align: center;
+      }
+
+      @media (max-width: 560px) {
+        .card { padding: 2rem 1.5rem; }
+        h1 { font-size: 1.65rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="icon">&#127807;</div>
+      <h1>Your Action Kit is ready.</h1>
+      <p class="subtitle">All three PDFs are below. Download them now and save to a folder you'll find easily.</p>
+
+      <div class="downloads">
+        <a class="download-item" href="/guides/30-day-food-system-action-plan.pdf" download>
+          <div class="download-item__text">
+            <p class="download-item__label">Start here</p>
+            <p class="download-item__title">30-Day Food System Action Plan</p>
+            <p class="download-item__meta">PDF download</p>
+          </div>
+          <div class="download-item__arrow">&#8595;</div>
+        </a>
+        <a class="download-item" href="/guides/space-and-planting-planner.pdf" download>
+          <div class="download-item__text">
+            <p class="download-item__label">Planning tool</p>
+            <p class="download-item__title">Space &amp; Planting Planner</p>
+            <p class="download-item__meta">PDF download</p>
+          </div>
+          <div class="download-item__arrow">&#8595;</div>
+        </a>
+        <a class="download-item" href="/guides/seasonal-growing-calendar.pdf" download>
+          <div class="download-item__text">
+            <p class="download-item__label">Seasonal reference</p>
+            <p class="download-item__title">Seasonal Growing Calendar</p>
+            <p class="download-item__meta">PDF download</p>
+          </div>
+          <div class="download-item__arrow">&#8595;</div>
+        </a>
+      </div>
+
+      <p class="start-note"><strong>Where to start:</strong> open the 30-Day Action Plan first — it shows you how to use the other two tools alongside it.</p>
+    </div>
+
+    <p class="footer">&copy; Grow Food System 2026</p>
+  </body>
+</html>
