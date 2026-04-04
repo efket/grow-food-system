@@ -10,6 +10,13 @@
       gtag('js', new Date());
       gtag('config', 'G-9QT6NR4CEK');
       gtag('config', 'AW-18057221634');
+      // GA4 purchase event — fires on delivery page load (Stripe success_url)
+      gtag('event', 'purchase', {
+        'transaction_id': new URLSearchParams(window.location.search).get('session_id') || Date.now().toString(),
+        'value': 27.00,
+        'currency': 'USD',
+        'items': [{ 'item_name': '30-Day Food System Action Kit', 'price': 27.00, 'quantity': 1 }]
+      });
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="only light">
