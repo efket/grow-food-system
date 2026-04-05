@@ -17,6 +17,13 @@
         'currency': 'USD',
         'items': [{ 'item_name': '30-Day Food System Action Kit', 'price': 27.00, 'quantity': 1 }]
       });
+      // Google Ads purchase conversion — fires on delivery page load
+      gtag('event', 'conversion', {
+        'send_to': 'AW-18057221634/tLn3CO_9j5YcEIKsraJD',
+        'value': 27.00,
+        'currency': 'USD',
+        'transaction_id': new URLSearchParams(window.location.search).get('session_id') || ''
+      });
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="only light">
