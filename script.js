@@ -21,6 +21,42 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // ── UTM / source attribution capture ────────────────────────────────────
+  // Reads URL params on page load, populates hidden form fields,
+  // persists to sessionStorage (first-touch: URL wins, fallback to stored).
+  (function () {
+    const p = new URLSearchParams(window.location.search);
+    const SESSION_KEY = "gfs_utm";
+    let stored = {};
+    try { stored = JSON.parse(sessionStorage.getItem(SESSION_KEY) || "{}"); } catch (e) {}
+
+    const map = [
+      ["f-utm-source",   "utm_source"],
+      ["f-utm-medium",   "utm_medium"],
+      ["f-utm-campaign", "utm_campaign"],
+      ["f-utm-term",     "utm_term"],
+      ["f-gclid",        "gclid"],
+    ];
+
+    const save = {};
+
+    map.forEach(([id, key]) => {
+      const val = p.get(key) || stored[key] || "";
+      if (val) {
+        save[key] = val;
+        const el = document.getElementById(id);
+        if (el) el.value = val;
+      }
+    });
+
+    // landing_page: always the actual page path, never persisted across pages
+    const lpEl = document.getElementById("f-landing-page");
+    if (lpEl) lpEl.value = window.location.pathname;
+    save.landing_page = window.location.pathname;
+
+    try { sessionStorage.setItem(SESSION_KEY, JSON.stringify(save)); } catch (e) {}
+  })();
+
   // Signup form — MailerLite integration
   const form = document.getElementById("signup-form");
   const success = document.getElementById("form-success");
