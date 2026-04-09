@@ -10,20 +10,22 @@
       gtag('js', new Date());
       gtag('config', 'G-9QT6NR4CEK');
       gtag('config', 'AW-18057221634');
-      // GA4 purchase event — fires on delivery page load (Stripe success_url)
-      gtag('event', 'purchase', {
-        'transaction_id': new URLSearchParams(window.location.search).get('session_id') || Date.now().toString(),
-        'value': 27.00,
-        'currency': 'USD',
-        'items': [{ 'item_name': '30-Day Food System Action Kit', 'price': 27.00, 'quantity': 1 }]
-      });
-      // Google Ads purchase conversion — fires on delivery page load
-      gtag('event', 'conversion', {
-        'send_to': 'AW-18057221634/tLn3CO_9j5YcEIKsraJD',
-        'value': 27.00,
-        'currency': 'USD',
-        'transaction_id': new URLSearchParams(window.location.search).get('session_id') || ''
-      });
+      // GA4 purchase + Ads conversion — only fire when session_id present (guards against re-visits)
+      const _sid = new URLSearchParams(window.location.search).get('session_id');
+      if (_sid) {
+        gtag('event', 'purchase', {
+          'transaction_id': _sid,
+          'value': 27.00,
+          'currency': 'USD',
+          'items': [{ 'item_name': '30-Day Food System Action Kit', 'price': 27.00, 'quantity': 1 }]
+        });
+        gtag('event', 'conversion', {
+          'send_to': 'AW-18057221634/tLn3CO_9j5YcEIKsraJD',
+          'value': 27.00,
+          'currency': 'USD',
+          'transaction_id': _sid
+        });
+      }
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="only light">
