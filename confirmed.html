@@ -18,6 +18,11 @@
         'value': 1.0,
         'currency': 'GBP'
       });
+      // GA4 sign-up event — tracked separately so generate_lead appears in GA4 reporting
+      gtag('event', 'generate_lead', {
+        'currency': 'GBP',
+        'value': 1.0
+      });
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="only light">
