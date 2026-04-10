@@ -119,9 +119,10 @@
   <!-- Funnel -->
   <section>
     <h2>Funnel (yesterday)</h2>
+    <p style="font-size:12px;color:var(--muted);margin:0 0 10px;">Correct path: Homepage → Form submit → /confirmed (DOI). /get/guide/ = guide download page, not a funnel step.</p>
     <div class="cards cards-4" id="cards-funnel">
-      <div class="card"><div class="card-label">Homepage views</div><div class="card-value loading">–</div></div>
-      <div class="card"><div class="card-label">/get/guide/ views</div><div class="card-value loading">–</div></div>
+      <div class="card"><div class="card-label">Homepage sessions</div><div class="card-value loading">–</div></div>
+      <div class="card"><div class="card-label">Form submissions</div><div class="card-value loading">–</div></div>
       <div class="card"><div class="card-label">/confirmed views</div><div class="card-value loading">–</div></div>
       <div class="card"><div class="card-label">Guide downloads</div><div class="card-value loading">–</div></div>
     </div>
@@ -335,15 +336,16 @@ async function loadFunnel() {
       return;
     }
 
-    const cards = document.querySelectorAll('#cards-funnel .card');
-    const home  = d.pages?.['/'] || {};
-    const guide = d.pages?.['/get/guide/'] || {};
-    const conf  = d.pages?.['/confirmed'] || {};
-    const dl    = d.events?.guide_download || 0;
+    const cards      = document.querySelectorAll('#cards-funnel .card');
+    const home       = d.pages?.['/'] || {};
+    const conf       = d.pages?.['/confirmed'] || {};
+    const dl         = d.events?.guide_download || 0;
+    const formSubmit = (d.events?.quick_optin_submit || 0) + (d.events?.lower_form_submit || 0);
+    const homeSess   = home.sessions ?? 0;
 
-    setCard(cards[0], home.views ?? 0, `${home.sessions ?? 0} sessions`);
-    setCard(cards[1], guide.views ?? 0, home.views ? (((guide.views||0)/home.views)*100).toFixed(0)+'% of homepage' : '');
-    setCard(cards[2], conf.views ?? 0,  guide.views ? (((conf.views||0)/guide.views)*100).toFixed(0)+'% of /get/guide/' : '');
+    setCard(cards[0], homeSess, `${home.views ?? 0} views`);
+    setCard(cards[1], formSubmit, homeSess ? ((formSubmit/homeSess)*100).toFixed(0)+'% of sessions' : '');
+    setCard(cards[2], conf.views ?? 0, formSubmit ? (((conf.views||0)/formSubmit)*100).toFixed(0)+'% of submits' : '');
     setCard(cards[3], dl, d.date || '');
 
     if (d.last_updated) {
