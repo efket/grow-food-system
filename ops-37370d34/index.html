@@ -400,7 +400,7 @@ async function loadSource() {
     }).join('');
 
     const updStr = d.last_updated ? ` · Updated: ${fmtTs(d.last_updated)}` : '';
-    meta.textContent = `Total: ${d.total_subscribers} subscribers · ${d.no_source_count||0} with no source (pre-attribution or direct)${updStr}`;
+    meta.textContent = `Total: ${d.total_subscribers} subscribers · ${d.no_source_count||0} with no source (direct/organic — no UTM params and no gclid)${updStr}`;
   } catch(e) {
     console.error('source', e);
     showTableError('tbody-source', 4, errMsg(e, 'Source performance data unavailable'));
