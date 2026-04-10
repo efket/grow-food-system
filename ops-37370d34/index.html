@@ -28,6 +28,7 @@
   section { margin-bottom: 28px; }
   section h2 { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
   .cards { display: grid; gap: 12px; }
+  .cards-6 { grid-template-columns: repeat(6, 1fr); }
   .cards-5 { grid-template-columns: repeat(5, 1fr); }
   .cards-4 { grid-template-columns: repeat(4, 1fr); }
   .cards-3 { grid-template-columns: repeat(3, 1fr); }
@@ -56,12 +57,13 @@
   .pct-bar { height: 4px; background: var(--border); border-radius: 2px; margin-top: 8px; overflow: hidden; }
   .pct-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.4s; }
   @media (max-width: 900px) {
+    .cards-6 { grid-template-columns: repeat(3, 1fr); }
     .cards-5 { grid-template-columns: repeat(3, 1fr); }
     .cards-4 { grid-template-columns: repeat(2, 1fr); }
     .cards-3 { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 580px) {
-    .cards-5, .cards-4, .cards-3 { grid-template-columns: repeat(2, 1fr); }
+    .cards-6, .cards-5, .cards-4, .cards-3 { grid-template-columns: repeat(2, 1fr); }
     main { padding: 16px; }
   }
   .refresh-btn { background: none; border: 1px solid var(--border); color: var(--muted); font-size: 12px; padding: 5px 10px; border-radius: 6px; cursor: pointer; }
@@ -104,12 +106,13 @@
   <section>
     <h2>Ads Performance <span id="ads-data-meta" style="font-size:10px;color:var(--muted);font-weight:400;text-transform:none;margin-left:6px;"></span></h2>
     <div id="ads-stale-warning"></div>
-    <div class="cards cards-5" id="cards-ads">
+    <div class="cards cards-6" id="cards-ads">
       <div class="card"><div class="card-label">Clicks</div><div class="card-value loading">–</div></div>
       <div class="card"><div class="card-label">CPC</div><div class="card-value loading">–</div></div>
       <div class="card"><div class="card-label">CTR</div><div class="card-value loading">–</div></div>
       <div class="card"><div class="card-label">CPL</div><div class="card-value loading">–</div></div>
       <div class="card"><div class="card-label">Impressions</div><div class="card-value loading">–</div></div>
+      <div class="card"><div class="card-label">Kit Sales (Stripe)</div><div class="card-value loading">–</div></div>
     </div>
   </section>
 
@@ -273,6 +276,8 @@ async function loadSummary() {
     setCard(aCards[2], g.ctr ? pct(g.ctr) : '–', '', g.ctr_flag);
     setCard(aCards[3], g.cpl ? '£' + Number(g.cpl).toFixed(2) : '–', '', g.cpl_flag);
     setCard(aCards[4], g.impressions ?? '–');
+    const s = d.stripe || {};
+    setCard(aCards[5], s.salesToday ?? '–', s.rolling7d != null ? s.rolling7d + ' in 7d' : '');
 
     if (d.warnings && d.warnings.length) {
       document.getElementById('warnings').innerHTML = d.warnings.map(w => `<div class="warning">${w}</div>`).join('');
