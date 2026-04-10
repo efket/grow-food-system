@@ -103,7 +103,8 @@
 
   <!-- Ads performance -->
   <section>
-    <h2>Ads Performance</h2>
+    <h2>Ads Performance <span id="ads-data-meta" style="font-size:10px;color:var(--muted);font-weight:400;text-transform:none;margin-left:6px;"></span></h2>
+    <div id="ads-stale-warning"></div>
     <div class="cards cards-5" id="cards-ads">
       <div class="card"><div class="card-label">Clicks</div><div class="card-value loading">–</div></div>
       <div class="card"><div class="card-label">CPC</div><div class="card-value loading">–</div></div>
@@ -234,6 +235,18 @@ async function loadSummary() {
     setCard(aCards[2], g.ctr ? pct(g.ctr) : '–', '', g.ctr_flag);
     setCard(aCards[3], g.cpl ? '£' + Number(g.cpl).toFixed(2) : '–', '', g.cpl_flag);
     setCard(aCards[4], g.impressions ?? '–');
+
+    // Data date + sync time label on Ads Performance heading
+    const adsMeta = document.getElementById('ads-data-meta');
+    const adsStale = document.getElementById('ads-stale-warning');
+    if (adsMeta && g.date) {
+      adsMeta.textContent = `Data: ${g.date} | Synced: ${ts}`;
+      const todayStr = new Date().toISOString().slice(0,10);
+      if (g.date !== todayStr) {
+        adsMeta.style.color = 'var(--amber)';
+        if (adsStale) adsStale.innerHTML = '<div class="warning" style="margin-bottom:10px;">⚠️ Ads data is from ' + g.date + ', not today (' + todayStr + '). Google Ads Script has not yet written today\'s data — thresholds may not reflect current performance.</div>';
+      }
+    }
 
     if (d.warnings && d.warnings.length) {
       const wEl = document.getElementById('warnings');
