@@ -93,12 +93,11 @@
   <!-- A: Top Summary -->
   <section>
     <h2>Today's Pulse</h2>
-    <div class="cards cards-5" id="cards-summary">
-      <div class="card"><div class="card-label">New subscribers</div><div class="card-value loading">–</div></div>
+    <div class="cards cards-4" id="cards-summary">
+      <div class="card"><div class="card-label">New subscribers today</div><div class="card-value loading">–</div></div>
       <div class="card"><div class="card-label">Kit sales today</div><div class="card-value loading">–</div></div>
       <div class="card"><div class="card-label">Revenue today</div><div class="card-value loading">–</div></div>
-      <div class="card"><div class="card-label">Leads (7d Ads)</div><div class="card-value loading">–</div></div>
-      <div class="card"><div class="card-label">Spend (last Ads day)</div><div class="card-value loading">–</div></div>
+      <div class="card"><div class="card-label">Total active list</div><div class="card-value loading">–</div></div>
     </div>
   </section>
 
@@ -223,11 +222,10 @@ async function loadSummary() {
     const d = await fetchRoute('summary');
     if (!d.has_data) return;
     const cards = document.querySelectorAll('#cards-summary .card');
-    setCard(cards[0], d.ml.newToday, `${d.ml.totalActive} total active`);
+    setCard(cards[0], d.ml.newToday, `${d.ml.totalPostAttrib} attributed`);
     setCard(cards[1], d.stripe.salesToday, `${d.stripe.rolling7d} in 7d`);
     setCard(cards[2], '$' + (d.stripe.revenueToday || 0));
-    setCard(cards[3], d.ml.totalPostAttrib, 'post-attribution');
-    setCard(cards[4], d.gads ? ('£' + Number(d.gads.spend).toFixed(2)) : '–', d.gads ? d.gads.date : '');
+    setCard(cards[3], d.ml.totalActive, 'on list');
 
     const aCards = document.querySelectorAll('#cards-ads .card');
     const g = d.gads || {};
