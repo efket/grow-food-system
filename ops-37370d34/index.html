@@ -277,7 +277,7 @@ async function loadSummary() {
     setCard(aCards[3], g.cpl ? '£' + Number(g.cpl).toFixed(2) : '–', '', g.cpl_flag);
     setCard(aCards[4], g.impressions ?? '–');
     const s = d.stripe || {};
-    setCard(aCards[5], s.salesToday ?? '–', s.rolling7d != null ? s.rolling7d + ' in 7d' : '');
+    setCard(aCards[5], s.salesYesterday ?? '–', s.rolling7d != null ? s.rolling7d + ' in 7d' : '');
 
     if (d.warnings && d.warnings.length) {
       document.getElementById('warnings').innerHTML = d.warnings.map(w => `<div class="warning">${w}</div>`).join('');
