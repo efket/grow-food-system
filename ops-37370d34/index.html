@@ -41,25 +41,20 @@
   .flag-high { color: var(--red); }
   .flag-amber { color: var(--amber); }
   .flag-low { color: var(--green); }
-  /* Warnings */
   #warnings { margin-bottom: 20px; }
   .warning { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); border-radius: 8px; padding: 10px 14px; font-size: 13px; color: var(--amber); margin-bottom: 8px; }
-  /* Table */
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
   th { text-align: left; padding: 8px 12px; font-size: 11px; font-weight: 600; color: var(--muted); border-bottom: 1px solid var(--border); }
   td { padding: 9px 12px; border-bottom: 1px solid var(--border); }
   tr:last-child td { border-bottom: none; }
   .tbl-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-  /* Status dot */
   .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
   .dot-green { background: var(--green); }
   .dot-amber { background: var(--amber); }
   .dot-red { background: var(--red); }
-  /* Loading */
   .loading { color: var(--muted); font-size: 13px; padding: 20px 0; }
   .pct-bar { height: 4px; background: var(--border); border-radius: 2px; margin-top: 8px; overflow: hidden; }
   .pct-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.4s; }
-  /* Responsive */
   @media (max-width: 900px) {
     .cards-5 { grid-template-columns: repeat(3, 1fr); }
     .cards-4 { grid-template-columns: repeat(2, 1fr); }
@@ -73,6 +68,10 @@
   .refresh-btn:hover { color: var(--text); border-color: var(--muted); }
   .na { color: var(--muted); }
   .tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px; background: rgba(79,110,247,0.15); color: var(--blue); margin-left: 6px; }
+  /* 3-state section indicators */
+  .section-error { display: none; font-size: 13px; margin-top: 10px; }
+  .section-error.error { color: var(--amber); }
+  .section-error.empty { color: var(--muted); }
 </style>
 </head>
 <body>
@@ -87,10 +86,9 @@
 
 <main>
 
-  <!-- Warnings -->
   <div id="warnings"></div>
 
-  <!-- A: Top Summary -->
+  <!-- Today's Pulse -->
   <section>
     <h2>Today's Pulse</h2>
     <div class="cards cards-4" id="cards-summary">
@@ -99,9 +97,10 @@
       <div class="card"><div class="card-label">Revenue today</div><div class="card-value loading">–</div></div>
       <div class="card"><div class="card-label">Total active list</div><div class="card-value loading">–</div></div>
     </div>
+    <div class="section-error" id="summary-error"></div>
   </section>
 
-  <!-- Ads performance -->
+  <!-- Ads Performance -->
   <section>
     <h2>Ads Performance <span id="ads-data-meta" style="font-size:10px;color:var(--muted);font-weight:400;text-transform:none;margin-left:6px;"></span></h2>
     <div id="ads-stale-warning"></div>
@@ -114,7 +113,7 @@
     </div>
   </section>
 
-  <!-- B: Funnel -->
+  <!-- Funnel -->
   <section>
     <h2>Funnel (yesterday)</h2>
     <div class="cards cards-4" id="cards-funnel">
@@ -123,13 +122,14 @@
       <div class="card"><div class="card-label">/confirmed views</div><div class="card-value loading">–</div></div>
       <div class="card"><div class="card-label">Guide downloads</div><div class="card-value loading">–</div></div>
     </div>
+    <div class="section-error" id="funnel-error"></div>
   </section>
 
-  <!-- C: Email sequence -->
+  <!-- Email Sequence -->
   <section>
     <h2>Email Sequence</h2>
     <div class="tbl-wrap">
-      <table id="tbl-email">
+      <table>
         <thead><tr><th>Step</th><th>Sent</th><th>Open rate</th><th>CTR</th></tr></thead>
         <tbody id="tbody-email"><tr><td colspan="4" class="loading na">Loading…</td></tr></tbody>
       </table>
@@ -137,11 +137,11 @@
     <div id="email-meta" style="margin-top:8px;font-size:12px;color:var(--muted);"></div>
   </section>
 
-  <!-- D: Source performance -->
+  <!-- Source Performance -->
   <section>
     <h2>Source Performance (since <span id="attrib-start">–</span>)</h2>
     <div class="tbl-wrap">
-      <table id="tbl-source">
+      <table>
         <thead><tr><th>Source</th><th>Subscribers</th><th>Kit buyers</th><th>Take rate</th></tr></thead>
         <tbody id="tbody-source"><tr><td colspan="4" class="loading na">Loading…</td></tr></tbody>
       </table>
@@ -149,11 +149,11 @@
     <div id="source-meta" style="margin-top:8px;font-size:12px;color:var(--muted);"></div>
   </section>
 
-  <!-- E: Search terms (weekly, lagged) -->
+  <!-- Search Terms -->
   <section>
     <h2>Search Terms <span style="font-size:10px;color:var(--muted);font-weight:400;text-transform:none;">(weekly, 2-3 day lag)</span></h2>
     <div class="tbl-wrap">
-      <table id="tbl-search">
+      <table>
         <thead><tr><th>Term</th><th>Clicks</th><th>Impr.</th><th>CTR</th><th>Conv.</th></tr></thead>
         <tbody id="tbody-search"><tr><td colspan="5" class="loading na">Loading…</td></tr></tbody>
       </table>
@@ -172,31 +172,18 @@
 <script>
 const BASE = 'https://script.google.com/macros/s/AKfycbzJHgbrP3L9DtD9OS-NKju961m91IfCF6eCmBhwX0ipJkhqmPoslNMxDj6PNd54aEP7/exec';
 
-function fmt(v, prefix, decimals) {
-  if (v === null || v === undefined || v === '') return '–';
-  const n = Number(v);
-  if (isNaN(n)) return v;
-  const s = decimals !== undefined ? n.toFixed(decimals) : String(n);
-  return (prefix || '') + s;
-}
-
 function pct(v) {
   if (v === null || v === undefined) return '–';
   return (Number(v) * 100).toFixed(1) + '%';
 }
 
-function flag(cls, label) {
-  return `<div class="card-flag ${cls}">${label}</div>`;
-}
-
 function flagHtml(f) {
   if (!f) return '';
   const l = f.toUpperCase();
-  if (l === 'OK') return flag('flag-ok', '✓ OK');
-  if (l === 'HIGH') return flag('flag-high', '↑ HIGH');
-  if (l === 'LOW') return flag('flag-low', '↓ LOW');
-  if (l === 'AMBER') return flag('flag-amber', '⚠ WATCH');
-  return flag('flag-amber', f);
+  const map = { OK: 'flag-ok', HIGH: 'flag-high', LOW: 'flag-low', AMBER: 'flag-amber' };
+  const cls = map[l] || 'flag-amber';
+  const lbl = l === 'OK' ? '✓ OK' : l === 'HIGH' ? '↑ HIGH' : l === 'LOW' ? '↓ LOW' : l === 'AMBER' ? '⚠ WATCH' : f;
+  return `<div class="card-flag ${cls}">${lbl}</div>`;
 }
 
 function setCard(el, value, sub, flagStr) {
@@ -208,20 +195,69 @@ function setCard(el, value, sub, flagStr) {
     if (!sEl) { const d = document.createElement('div'); d.className = 'card-sub'; d.textContent = sub; el.appendChild(d); }
     else sEl.textContent = sub;
   }
-  if (flagStr !== undefined && !fEl) {
-    el.insertAdjacentHTML('beforeend', flagHtml(flagStr));
+  if (flagStr !== undefined && !fEl) el.insertAdjacentHTML('beforeend', flagHtml(flagStr));
+}
+
+// Fetch with 10s timeout — throws AbortError on timeout
+async function fetchRoute(route) {
+  const ctrl = new AbortController();
+  const tid = setTimeout(() => ctrl.abort(), 10000);
+  try {
+    const r = await fetch(BASE + '?sheet=' + route, { signal: ctrl.signal });
+    clearTimeout(tid);
+    return r.json();
+  } catch(e) {
+    clearTimeout(tid);
+    throw e;
   }
 }
 
-async function fetchRoute(route) {
-  const r = await fetch(BASE + '?sheet=' + route);
-  return r.json();
+// 3-state helpers
+function showTableError(tbodyId, colspan, msg) {
+  const el = document.getElementById(tbodyId);
+  if (el) el.innerHTML = `<tr><td colspan="${colspan}" style="padding:16px 12px;color:var(--amber);">⚠ ${msg}</td></tr>`;
 }
+
+function showTableEmpty(tbodyId, colspan, msg) {
+  const el = document.getElementById(tbodyId);
+  if (el) el.innerHTML = `<tr><td colspan="${colspan}" style="padding:16px 12px;color:var(--muted);">${msg}</td></tr>`;
+}
+
+function showCardError(errorId, msg, isError = true) {
+  const el = document.getElementById(errorId);
+  if (!el) return;
+  el.textContent = (isError ? '⚠ ' : '') + msg;
+  el.className = 'section-error ' + (isError ? 'error' : 'empty');
+  el.style.display = 'block';
+}
+
+function clearCardLoading(containerId) {
+  document.querySelectorAll('#' + containerId + ' .card-value.loading').forEach(el => el.classList.remove('loading'));
+}
+
+function fmtTs(ts) {
+  if (!ts) return null;
+  return new Date(ts * 1000).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+}
+
+function errMsg(e, label) {
+  return e.name === 'AbortError'
+    ? `${label} — timed out (>10s). Try refreshing.`
+    : `${label} — route unreachable. Check script deployment.`;
+}
+
+// ── Loaders ──────────────────────────────────────────────────────────────────
 
 async function loadSummary() {
   try {
     const d = await fetchRoute('summary');
-    if (!d.has_data) return;
+    if (!d.has_data) {
+      clearCardLoading('cards-summary');
+      clearCardLoading('cards-ads');
+      showCardError('summary-error', 'No summary data yet — script may not have run yet.', false);
+      return;
+    }
+
     const cards = document.querySelectorAll('#cards-summary .card');
     setCard(cards[0], d.ml.newToday, `${d.ml.totalPostAttrib} attributed`);
     setCard(cards[1], d.stripe.salesToday, `${d.stripe.rolling7d} in 7d`);
@@ -237,16 +273,13 @@ async function loadSummary() {
     setCard(aCards[4], g.impressions ?? '–');
 
     if (d.warnings && d.warnings.length) {
-      const wEl = document.getElementById('warnings');
-      wEl.innerHTML = d.warnings.map(w => `<div class="warning">${w}</div>`).join('');
+      document.getElementById('warnings').innerHTML = d.warnings.map(w => `<div class="warning">${w}</div>`).join('');
     }
 
-    const ts = d.last_updated ? new Date(d.last_updated * 1000).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '–';
+    const ts = fmtTs(d.last_updated) || '–';
     document.getElementById('last-sync').textContent = 'Synced ' + ts;
 
-    // Data date + sync time — 2-factor freshness model
-    // Stale = data older than yesterday  OR  sync not seen within 26 hours
-    // Yesterday + fresh sync = expected normal state, not stale
+    // 2-factor freshness — Ads Performance
     const adsMeta = document.getElementById('ads-data-meta');
     const adsStale = document.getElementById('ads-stale-warning');
     if (adsMeta && g.date) {
@@ -262,9 +295,8 @@ async function loadSummary() {
       const syncIsFresh = syncAgeHours <= 26;
       const isStale = (dataAge === 'old') || !syncIsFresh;
 
-      let recencyLabel = '';
-      if (dataAge === 'today') recencyLabel = "Today's Ads data";
-      else if (dataAge === 'yesterday') recencyLabel = "Yesterday's completed Ads data";
+      const recencyLabel = dataAge === 'today' ? "Today's Ads data"
+        : dataAge === 'yesterday' ? "Yesterday's completed Ads data" : '';
 
       adsMeta.textContent = isStale
         ? `Data: ${g.date} | Synced: ${ts} ⚠️ STALE`
@@ -272,117 +304,138 @@ async function loadSummary() {
 
       if (isStale) {
         adsMeta.style.color = 'var(--amber)';
-        let staleReason = '';
-        if (dataAge === 'old') staleReason = `Ads data is from ${g.date} — older than yesterday. `;
-        else if (!syncIsFresh) staleReason = `Pipeline last synced at ${ts} — more than 26 hours ago. `;
-        if (adsStale) adsStale.innerHTML = `<div class="warning" style="margin-bottom:10px;">⚠️ ${staleReason}Thresholds may not reflect current performance.</div>`;
+        const reason = dataAge === 'old'
+          ? `Ads data is from ${g.date} — older than yesterday. `
+          : `Pipeline last synced at ${ts} — more than 26 hours ago. `;
+        if (adsStale) adsStale.innerHTML = `<div class="warning" style="margin-bottom:10px;">⚠️ ${reason}Thresholds may not reflect current performance.</div>`;
       }
     }
-  } catch (e) { console.error('summary', e); }
+  } catch(e) {
+    console.error('summary', e);
+    clearCardLoading('cards-summary');
+    clearCardLoading('cards-ads');
+    showCardError('summary-error', errMsg(e, 'Summary data unavailable'));
+    document.getElementById('last-sync').textContent = 'Load failed';
+  }
 }
 
 async function loadFunnel() {
   try {
     const d = await fetchRoute('funnel');
-    if (!d.has_data) return;
+    if (!d.has_data) {
+      clearCardLoading('cards-funnel');
+      showCardError('funnel-error', 'No funnel data yet — GA4 route responded but returned no data.', false);
+      return;
+    }
+
     const cards = document.querySelectorAll('#cards-funnel .card');
-    const home = d.pages?.['/'] || {};
+    const home  = d.pages?.['/'] || {};
     const guide = d.pages?.['/get/guide/'] || {};
-    const conf = d.pages?.['/confirmed'] || {};
-    const dl = d.events?.guide_download || 0;
+    const conf  = d.pages?.['/confirmed'] || {};
+    const dl    = d.events?.guide_download || 0;
 
     setCard(cards[0], home.views ?? 0, `${home.sessions ?? 0} sessions`);
     setCard(cards[1], guide.views ?? 0, home.views ? (((guide.views||0)/home.views)*100).toFixed(0)+'% of homepage' : '');
-    setCard(cards[2], conf.views ?? 0, guide.views ? (((conf.views||0)/guide.views)*100).toFixed(0)+'% of /get/guide/' : '');
+    setCard(cards[2], conf.views ?? 0,  guide.views ? (((conf.views||0)/guide.views)*100).toFixed(0)+'% of /get/guide/' : '');
     setCard(cards[3], dl, d.date || '');
-  } catch (e) { console.error('funnel', e); }
+
+    if (d.last_updated) {
+      showCardError('funnel-error', `Updated: ${fmtTs(d.last_updated)}`, false);
+    }
+  } catch(e) {
+    console.error('funnel', e);
+    clearCardLoading('cards-funnel');
+    showCardError('funnel-error', errMsg(e, 'Funnel data unavailable'));
+  }
 }
 
 async function loadEmail() {
   try {
     const d = await fetchRoute('emailsequence');
     const tbody = document.getElementById('tbody-email');
-    const meta = document.getElementById('email-meta');
+    const meta  = document.getElementById('email-meta');
 
     if (!d.has_data || !d.steps || d.steps.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="4" class="na" style="padding:16px 12px;color:var(--muted);">No step data yet — check back after more subscribers complete the sequence.</td></tr>';
-      meta.textContent = d.automation_name ? `Automation: ${d.automation_name} · Enrolled: ${d.enrolled} · Active: ${d.active} · Completed: ${d.completed}` : '';
+      showTableEmpty('tbody-email', 4, 'No step data yet — check back after more subscribers complete the sequence.');
+      if (d.automation_name) meta.textContent = `Automation: ${d.automation_name} · Enrolled: ${d.enrolled} · Active: ${d.active} · Completed: ${d.completed}`;
       return;
     }
 
     tbody.innerHTML = d.steps.map(s => {
-      const or = s.open_rate !== null ? (s.open_rate * 100).toFixed(1) + '%' : '–';
+      const or  = s.open_rate !== null ? (s.open_rate * 100).toFixed(1) + '%' : '–';
       const ctr = s.ctr !== null ? (s.ctr * 100).toFixed(1) + '%' : '–';
-      return `<tr>
-        <td>${s.name || '–'}</td>
-        <td>${s.sent ?? '–'}</td>
-        <td>${or}</td>
-        <td>${ctr}</td>
-      </tr>`;
+      return `<tr><td>${s.name||'–'}</td><td>${s.sent??'–'}</td><td>${or}</td><td>${ctr}</td></tr>`;
     }).join('');
-    meta.textContent = `${d.automation_name} · Enrolled: ${d.enrolled} · Active: ${d.active} · Completed: ${d.completed} · Updated: ${d.updated}`;
-  } catch (e) { console.error('email', e); }
+
+    const updStr = d.last_updated ? ` · Updated: ${fmtTs(d.last_updated)}` : (d.updated ? ` · Updated: ${d.updated}` : '');
+    meta.textContent = `${d.automation_name} · Enrolled: ${d.enrolled} · Active: ${d.active} · Completed: ${d.completed}${updStr}`;
+  } catch(e) {
+    console.error('email', e);
+    showTableError('tbody-email', 4, errMsg(e, 'Email sequence data unavailable — MailerLite route'));
+  }
 }
 
 async function loadSource() {
   try {
     const d = await fetchRoute('sourceperformance');
-    const tbody = document.getElementById('tbody-source');
-    const meta = document.getElementById('source-meta');
+    const tbody   = document.getElementById('tbody-source');
+    const meta    = document.getElementById('source-meta');
     const startEl = document.getElementById('attrib-start');
-
     if (startEl) startEl.textContent = d.attribution_start || '–';
 
     if (!d.has_data || !d.entries || d.entries.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="4" class="na" style="padding:16px 12px;color:var(--muted);">No attributed subscribers yet.</td></tr>';
+      showTableEmpty('tbody-source', 4, 'No attributed subscribers yet.');
       return;
     }
 
     tbody.innerHTML = d.entries.map(e => {
-      const srcLabel = e.source || '(none)';
-      const dot = e.source === 'google' ? 'dot-green' : (e.source === 'test' ? 'dot-amber' : 'dot-amber');
+      const dot = e.source === 'google' ? 'dot-green' : 'dot-amber';
       return `<tr>
-        <td><span class="dot ${dot}"></span>${srcLabel}${e.medium ? ' / ' + e.medium : ''}</td>
-        <td>${e.subscribers}</td>
-        <td>${e.kit_buyers}</td>
-        <td>${e.take_rate_pct !== undefined ? e.take_rate_pct + '%' : '–'}</td>
+        <td><span class="dot ${dot}"></span>${e.source||'(none)'}${e.medium?' / '+e.medium:''}</td>
+        <td>${e.subscribers}</td><td>${e.kit_buyers}</td>
+        <td>${e.take_rate_pct !== undefined ? e.take_rate_pct+'%' : '–'}</td>
       </tr>`;
     }).join('');
 
-    const noSrc = d.no_source_count || 0;
-    meta.textContent = `Total: ${d.total_subscribers} subscribers · ${noSrc} with no source (pre-attribution or direct)`;
-  } catch (e) { console.error('source', e); }
+    const updStr = d.last_updated ? ` · Updated: ${fmtTs(d.last_updated)}` : '';
+    meta.textContent = `Total: ${d.total_subscribers} subscribers · ${d.no_source_count||0} with no source (pre-attribution or direct)${updStr}`;
+  } catch(e) {
+    console.error('source', e);
+    showTableError('tbody-source', 4, errMsg(e, 'Source performance data unavailable'));
+  }
 }
 
 async function loadSearch() {
   try {
     const d = await fetchRoute('searchterms');
     const tbody = document.getElementById('tbody-search');
-    const meta = document.getElementById('search-meta');
+    const meta  = document.getElementById('search-meta');
 
     if (!d.has_data || !d.terms || d.terms.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="5" class="na" style="padding:16px 12px;color:var(--muted);">No search term data yet.</td></tr>';
+      showTableEmpty('tbody-search', 5, 'No search term data yet — script runs weekly on Monday 09:00–10:00.');
       return;
     }
 
-    const sorted = [...d.terms].sort((a, b) => (b.clicks || 0) - (a.clicks || 0));
-    tbody.innerHTML = sorted.slice(0, 30).map(t => {
-      const ctr = t.ctr !== undefined ? Number(t.ctr).toFixed(1) + '%' : '–';
+    const sorted = [...d.terms].sort((a,b) => (b.clicks||0) - (a.clicks||0));
+    tbody.innerHTML = sorted.slice(0,30).map(t => {
+      const ctr = t.ctr !== undefined ? Number(t.ctr).toFixed(1)+'%' : '–';
       return `<tr>
-        <td style="max-width:300px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${t.query || t.searchTerm || t.term || '–'}</td>
-        <td>${t.clicks ?? '–'}</td>
-        <td>${t.impressions ?? '–'}</td>
-        <td>${ctr}</td>
-        <td>${t.conversions ?? t.conv ?? '–'}</td>
+        <td style="max-width:300px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${t.query||t.searchTerm||t.term||'–'}</td>
+        <td>${t.clicks??'–'}</td><td>${t.impressions??'–'}</td><td>${ctr}</td><td>${t.conversions??t.conv??'–'}</td>
       </tr>`;
     }).join('');
 
-    meta.textContent = `${d.total_terms} terms · Pulled: ${d.date_pulled || '–'}`;
-  } catch (e) { console.error('search', e); }
+    const updStr = d.last_updated ? ` · Updated: ${fmtTs(d.last_updated)}` : '';
+    meta.textContent = `${d.total_terms} terms · Pulled: ${d.date_pulled||'–'}${updStr}`;
+  } catch(e) {
+    console.error('search', e);
+    showTableError('tbody-search', 5, errMsg(e, 'Search terms unavailable'));
+  }
 }
 
 async function loadAll() {
   document.getElementById('last-sync').textContent = 'Refreshing…';
+  document.querySelectorAll('.section-error').forEach(el => { el.style.display='none'; el.textContent=''; });
   await Promise.all([loadSummary(), loadFunnel(), loadEmail(), loadSource(), loadSearch()]);
 }
 
