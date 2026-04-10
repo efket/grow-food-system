@@ -244,15 +244,38 @@ async function loadSummary() {
     const ts = d.last_updated ? new Date(d.last_updated * 1000).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '–';
     document.getElementById('last-sync').textContent = 'Synced ' + ts;
 
-    // Data date + sync time — declared after const ts to avoid temporal dead zone
+    // Data date + sync time — 2-factor freshness model
+    // Stale = data older than yesterday  OR  sync not seen within 26 hours
+    // Yesterday + fresh sync = expected normal state, not stale
     const adsMeta = document.getElementById('ads-data-meta');
     const adsStale = document.getElementById('ads-stale-warning');
     if (adsMeta && g.date) {
-      adsMeta.textContent = `Data: ${g.date} | Synced: ${ts}`;
       const todayStr = new Date().toISOString().slice(0,10);
-      if (g.date !== todayStr) {
+      const yest = new Date(); yest.setDate(yest.getDate() - 1);
+      const yesterdayStr = yest.toISOString().slice(0,10);
+
+      let dataAge = 'old';
+      if (g.date === todayStr) dataAge = 'today';
+      else if (g.date === yesterdayStr) dataAge = 'yesterday';
+
+      const syncAgeHours = d.last_updated ? (Date.now()/1000 - d.last_updated) / 3600 : 999;
+      const syncIsFresh = syncAgeHours <= 26;
+      const isStale = (dataAge === 'old') || !syncIsFresh;
+
+      let recencyLabel = '';
+      if (dataAge === 'today') recencyLabel = "Today's Ads data";
+      else if (dataAge === 'yesterday') recencyLabel = "Yesterday's completed Ads data";
+
+      adsMeta.textContent = isStale
+        ? `Data: ${g.date} | Synced: ${ts} ⚠️ STALE`
+        : `Data: ${g.date} | Synced: ${ts}${recencyLabel ? ' | ' + recencyLabel : ''}`;
+
+      if (isStale) {
         adsMeta.style.color = 'var(--amber)';
-        if (adsStale) adsStale.innerHTML = '<div class="warning" style="margin-bottom:10px;">⚠️ Ads data is from ' + g.date + ', not today (' + todayStr + '). Google Ads Script has not yet written today\'s data — thresholds may not reflect current performance.</div>';
+        let staleReason = '';
+        if (dataAge === 'old') staleReason = `Ads data is from ${g.date} — older than yesterday. `;
+        else if (!syncIsFresh) staleReason = `Pipeline last synced at ${ts} — more than 26 hours ago. `;
+        if (adsStale) adsStale.innerHTML = `<div class="warning" style="margin-bottom:10px;">⚠️ ${staleReason}Thresholds may not reflect current performance.</div>`;
       }
     }
   } catch (e) { console.error('summary', e); }
