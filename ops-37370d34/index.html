@@ -236,7 +236,15 @@ async function loadSummary() {
     setCard(aCards[3], g.cpl ? '£' + Number(g.cpl).toFixed(2) : '–', '', g.cpl_flag);
     setCard(aCards[4], g.impressions ?? '–');
 
-    // Data date + sync time label on Ads Performance heading
+    if (d.warnings && d.warnings.length) {
+      const wEl = document.getElementById('warnings');
+      wEl.innerHTML = d.warnings.map(w => `<div class="warning">${w}</div>`).join('');
+    }
+
+    const ts = d.last_updated ? new Date(d.last_updated * 1000).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '–';
+    document.getElementById('last-sync').textContent = 'Synced ' + ts;
+
+    // Data date + sync time — declared after const ts to avoid temporal dead zone
     const adsMeta = document.getElementById('ads-data-meta');
     const adsStale = document.getElementById('ads-stale-warning');
     if (adsMeta && g.date) {
@@ -247,14 +255,6 @@ async function loadSummary() {
         if (adsStale) adsStale.innerHTML = '<div class="warning" style="margin-bottom:10px;">⚠️ Ads data is from ' + g.date + ', not today (' + todayStr + '). Google Ads Script has not yet written today\'s data — thresholds may not reflect current performance.</div>';
       }
     }
-
-    if (d.warnings && d.warnings.length) {
-      const wEl = document.getElementById('warnings');
-      wEl.innerHTML = d.warnings.map(w => `<div class="warning">${w}</div>`).join('');
-    }
-
-    const ts = d.last_updated ? new Date(d.last_updated * 1000).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '–';
-    document.getElementById('last-sync').textContent = 'Synced ' + ts;
   } catch (e) { console.error('summary', e); }
 }
 
