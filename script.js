@@ -1,28 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Smooth scroll for anchor links
-  const anchorLinks = document.querySelectorAll('a[href^="#"]');
 
-  anchorLinks.forEach((link) => {
+  // ── Smooth scroll for anchor links ──────────────────────────────────────
+  document.querySelectorAll('a[href^="#"]').forEach((link) => {
     link.addEventListener("click", (event) => {
       const href = link.getAttribute("href");
-
-      if (!href || href === "#") {
-        return;
-      }
-
+      if (!href || href === "#") return;
       const target = document.querySelector(href);
-
-      if (!target) {
-        return;
-      }
-
+      if (!target) return;
       event.preventDefault();
       target.scrollIntoView({ behavior: "smooth", block: "center" });
     });
   });
 
+  // ── CTA click tracking ───────────────────────────────────────────────────
+  document.querySelectorAll("a[data-cta-location]").forEach((link) => {
+    link.addEventListener("click", () => {
+      gtag("event", "cta_click", { cta_location: link.dataset.ctaLocation });
+    });
+  });
+
   // ── UTM / source attribution capture ────────────────────────────────────
-  // Reads URL params on page load, populates hidden form fields,
+  // Reads URL params on page load, populates hidden fields in BOTH forms,
   // persists to sessionStorage (first-touch: URL wins, fallback to stored).
   (function () {
     const p = new URLSearchParams(window.location.search);
@@ -30,69 +28,104 @@ document.addEventListener("DOMContentLoaded", () => {
     let stored = {};
     try { stored = JSON.parse(sessionStorage.getItem(SESSION_KEY) || "{}"); } catch (e) {}
 
-    const map = [
-      ["f-utm-source",   "utm_source"],
-      ["f-utm-medium",   "utm_medium"],
-      ["f-utm-campaign", "utm_campaign"],
-      ["f-utm-term",     "utm_term"],
-      ["f-gclid",        "gclid"],
+    // Each UTM key maps to [lower-form-id, quick-optin-form-id]
+    const UTM_MAP = [
+      ["utm_source",   ["f-utm-source",   "h-utm-source"]],
+      ["utm_medium",   ["f-utm-medium",   "h-utm-medium"]],
+      ["utm_campaign", ["f-utm-campaign", "h-utm-campaign"]],
+      ["utm_term",     ["f-utm-term",     "h-utm-term"]],
+      ["gclid",        ["f-gclid",        "h-gclid"]],
     ];
 
     const save = {};
 
-    map.forEach(([id, key]) => {
+    UTM_MAP.forEach(([key, ids]) => {
       const val = p.get(key) || stored[key] || "";
       if (val) {
         save[key] = val;
-        const el = document.getElementById(id);
-        if (el) el.value = val;
+        ids.forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) el.value = val;
+        });
       }
     });
 
-    // landing_page: always the actual page path, never persisted across pages
-    const lpEl = document.getElementById("f-landing-page");
-    if (lpEl) lpEl.value = window.location.pathname;
+    // landing_page: always the actual page path, populate both forms
+    ["f-landing-page", "h-landing-page"].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) el.value = window.location.pathname;
+    });
     save.landing_page = window.location.pathname;
 
     try { sessionStorage.setItem(SESSION_KEY, JSON.stringify(save)); } catch (e) {}
   })();
 
-  // Signup form — MailerLite integration
-  const form = document.getElementById("signup-form");
-  const success = document.getElementById("form-success");
-  const submitBtn = form ? form.querySelector("button[type='submit']") : null;
+  // ── Scroll depth tracking (25 / 50 / 75%) ───────────────────────────────
+  (function () {
+    const thresholds = [25, 50, 75];
+    const fired = new Set();
 
-  if (!form || !success || !submitBtn) {
-    return;
+    function getScrollPct() {
+      const total = document.body.scrollHeight - window.innerHeight;
+      return total > 0 ? Math.round((window.scrollY / total) * 100) : 0;
+    }
+
+    window.addEventListener("scroll", () => {
+      const pct = getScrollPct();
+      thresholds.forEach((t) => {
+        if (pct >= t && !fired.has(t)) {
+          fired.add(t);
+          gtag("event", "scroll_depth", { depth_percent: t });
+        }
+      });
+    }, { passive: true });
+  })();
+
+  // ── Form submit handler (shared) ─────────────────────────────────────────
+  // hideSelector: CSS selector for elements to hide on success (within the form)
+  function wireForm(formId, successId, gaEvent, hideSelector) {
+    const form = document.getElementById(formId);
+    const success = document.getElementById(successId);
+    if (!form || !success) return;
+
+    const submitBtn = form.querySelector("button[type='submit']");
+    if (!submitBtn) return;
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const originalLabel = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending…";
+
+      try {
+        await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          mode: "no-cors",
+        });
+
+        gtag("event", gaEvent);
+
+        form.querySelectorAll(hideSelector).forEach((el) => { el.hidden = true; });
+        submitBtn.hidden = true;
+        success.hidden = false;
+      } catch {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+      }
+    });
   }
 
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
+  // Quick opt-in (above fold): hide the row + note on success
+  wireForm("quick-optin-form", "quick-optin-success", "quick_optin_submit", ".quick-optin-row, .quick-optin-note");
 
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
+  // Lower full form: hide fields + form note on success
+  wireForm("signup-form", "form-success", "lower_form_submit", ".field, .form-note");
 
-    const originalLabel = submitBtn.textContent;
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Sending…";
-
-    try {
-      await fetch(form.action, {
-        method: "POST",
-        body: new FormData(form),
-        mode: "no-cors",
-      });
-
-      form.querySelectorAll(".field, .form-note").forEach((el) => {
-        el.hidden = true;
-      });
-      submitBtn.textContent = "Sent!";
-      success.hidden = false;
-    } catch {
-      submitBtn.disabled = false;
-      submitBtn.textContent = originalLabel;
-    }
-  });
 });
