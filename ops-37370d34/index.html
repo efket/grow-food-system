@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>GFS Ops</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --border: #2a2d3a;
+    --text: #e8eaf0;
+    --muted: #7b8099;
+    --green: #22c55e;
+    --amber: #f59e0b;
+    --red: #ef4444;
+    --blue: #60a5fa;
+    --accent: #4f6ef7;
+  }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 14px; line-height: 1.5; }
+  header { padding: 20px 24px 12px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  header h1 { font-size: 18px; font-weight: 600; letter-spacing: -0.3px; }
+  header span { font-size: 12px; color: var(--muted); }
+  #last-sync { font-size: 12px; color: var(--muted); }
+  main { padding: 20px 24px; max-width: 1400px; margin: 0 auto; }
+  section { margin-bottom: 28px; }
+  section h2 { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .cards { display: grid; gap: 12px; }
+  .cards-5 { grid-template-columns: repeat(5, 1fr); }
+  .cards-4 { grid-template-columns: repeat(4, 1fr); }
+  .cards-3 { grid-template-columns: repeat(3, 1fr); }
+  .cards-auto { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .card-label { font-size: 11px; color: var(--muted); margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .card-value { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; line-height: 1; }
+  .card-sub { font-size: 12px; color: var(--muted); margin-top: 5px; }
+  .card-flag { font-size: 11px; font-weight: 600; margin-top: 6px; }
+  .flag-ok { color: var(--green); }
+  .flag-high { color: var(--red); }
+  .flag-amber { color: var(--amber); }
+  .flag-low { color: var(--green); }
+  /* Warnings */
+  #warnings { margin-bottom: 20px; }
+  .warning { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); border-radius: 8px; padding: 10px 14px; font-size: 13px; color: var(--amber); margin-bottom: 8px; }
+  /* Table */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; padding: 8px 12px; font-size: 11px; font-weight: 600; color: var(--muted); border-bottom: 1px solid var(--border); }
+  td { padding: 9px 12px; border-bottom: 1px solid var(--border); }
+  tr:last-child td { border-bottom: none; }
+  .tbl-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  /* Status dot */
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+  .dot-green { background: var(--green); }
+  .dot-amber { background: var(--amber); }
+  .dot-red { background: var(--red); }
+  /* Loading */
+  .loading { color: var(--muted); font-size: 13px; padding: 20px 0; }
+  .pct-bar { height: 4px; background: var(--border); border-radius: 2px; margin-top: 8px; overflow: hidden; }
+  .pct-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.4s; }
+  /* Responsive */
+  @media (max-width: 900px) {
+    .cards-5 { grid-template-columns: repeat(3, 1fr); }
+    .cards-4 { grid-template-columns: repeat(2, 1fr); }
+    .cards-3 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 580px) {
+    .cards-5, .cards-4, .cards-3 { grid-template-columns: repeat(2, 1fr); }
+    main { padding: 16px; }
+  }
+  .refresh-btn { background: none; border: 1px solid var(--border); color: var(--muted); font-size: 12px; padding: 5px 10px; border-radius: 6px; cursor: pointer; }
+  .refresh-btn:hover { color: var(--text); border-color: var(--muted); }
+  .na { color: var(--muted); }
+  .tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px; background: rgba(79,110,247,0.15); color: var(--blue); margin-left: 6px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>GFS Ops <span class="tag">Internal</span></h1>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <span id="last-sync">Loading…</span>
+    <button class="refresh-btn" onclick="loadAll()">↻ Refresh</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- Warnings -->
+  <div id="warnings"></div>
+
+  <!-- A: Top Summary -->
+  <section>
+    <h2>Today's Pulse</h2>
+    <div class="cards cards-5" id="cards-summary">
+      <div class="card"><div class="card-label">New subscribers</div><div class="card-value loading">–</div></div>
+      <div class="card"><div class="card-label">Kit sales today</div><div class="card-value loading">–</div></div>
+      <div class="card"><div class="card-label">Revenue today</div><div class="card-value loading">–</div></div>
+      <div class="card"><div class="card-label">Leads (7d Ads)</div><div class="card-value loading">–</div></div>
+      <div class="card"><div class="card-label">Spend (last Ads day)</div><div class="card-value loading">–</div></div>
+    </div>
+  </section>
+
+  <!-- Ads performance -->
+  <section>
+    <h2>Ads Performance</h2>
+    <div class="cards cards-5" id="cards-ads">
+      <div class="card"><div class="card-label">Clicks</div><div class="card-value loading">–</div></div>
+      <div class="card"><div class="card-label">CPC</div><div class="card-value loading">–</div></div>
+      <div class="card"><div class="card-label">CTR</div><div class="card-value loading">–</div></div>
+      <div class="card"><div class="card-label">CPL</div><div class="card-value loading">–</div></div>
+      <div class="card"><div class="card-label">Impressions</div><div class="card-value loading">–</div></div>
+    </div>
+  </section>
+
+  <!-- B: Funnel -->
+  <section>
+    <h2>Funnel (yesterday)</h2>
+    <div class="cards cards-4" id="cards-funnel">
+      <div class="card"><div class="card-label">Homepage views</div><div class="card-value loading">–</div></div>
+      <div class="card"><div class="card-label">/get/guide/ views</div><div class="card-value loading">–</div></div>
+      <div class="card"><div class="card-label">/confirmed views</div><div class="card-value loading">–</div></div>
+      <div class="card"><div class="card-label">Guide downloads</div><div class="card-value loading">–</div></div>
+    </div>
+  </section>
+
+  <!-- C: Email sequence -->
+  <section>
+    <h2>Email Sequence</h2>
+    <div class="tbl-wrap">
+      <table id="tbl-email">
+        <thead><tr><th>Step</th><th>Sent</th><th>Open rate</th><th>CTR</th></tr></thead>
+        <tbody id="tbody-email"><tr><td colspan="4" class="loading na">Loading…</td></tr></tbody>
+      </table>
+    </div>
+    <div id="email-meta" style="margin-top:8px;font-size:12px;color:var(--muted);"></div>
+  </section>
+
+  <!-- D: Source performance -->
+  <section>
+    <h2>Source Performance (since <span id="attrib-start">–</span>)</h2>
+    <div class="tbl-wrap">
+      <table id="tbl-source">
+        <thead><tr><th>Source</th><th>Subscribers</th><th>Kit buyers</th><th>Take rate</th></tr></thead>
+        <tbody id="tbody-source"><tr><td colspan="4" class="loading na">Loading…</td></tr></tbody>
+      </table>
+    </div>
+    <div id="source-meta" style="margin-top:8px;font-size:12px;color:var(--muted);"></div>
+  </section>
+
+  <!-- E: Search terms (weekly, lagged) -->
+  <section>
+    <h2>Search Terms <span style="font-size:10px;color:var(--muted);font-weight:400;text-transform:none;">(weekly, 2-3 day lag)</span></h2>
+    <div class="tbl-wrap">
+      <table id="tbl-search">
+        <thead><tr><th>Term</th><th>Clicks</th><th>Impr.</th><th>CTR</th><th>Conv.</th></tr></thead>
+        <tbody id="tbody-search"><tr><td colspan="5" class="loading na">Loading…</td></tr></tbody>
+      </table>
+    </div>
+    <div id="search-meta" style="margin-top:8px;font-size:12px;color:var(--muted);"></div>
+  </section>
+
+  <div style="margin-top:24px;font-size:12px;color:var(--muted);padding-bottom:32px;">
+    Amazon Attribution — manual check: <a href="https://advertising.amazon.com/attribution" target="_blank" style="color:var(--blue);">advertising.amazon.com/attribution</a>
+    &nbsp;·&nbsp; Campaign 585204121492297682
+    &nbsp;·&nbsp; Data available 7-14 days post-click.
+  </div>
+
+</main>
+
+<script>
+const BASE = 'https://script.google.com/macros/s/AKfycbzJHgbrP3L9DtD9OS-NKju961m91IfCF6eCmBhwX0ipJkhqmPoslNMxDj6PNd54aEP7/exec';
+
+function fmt(v, prefix, decimals) {
+  if (v === null || v === undefined || v === '') return '–';
+  const n = Number(v);
+  if (isNaN(n)) return v;
+  const s = decimals !== undefined ? n.toFixed(decimals) : String(n);
+  return (prefix || '') + s;
+}
+
+function pct(v) {
+  if (v === null || v === undefined) return '–';
+  return (Number(v) * 100).toFixed(1) + '%';
+}
+
+function flag(cls, label) {
+  return `<div class="card-flag ${cls}">${label}</div>`;
+}
+
+function flagHtml(f) {
+  if (!f) return '';
+  const l = f.toUpperCase();
+  if (l === 'OK') return flag('flag-ok', '✓ OK');
+  if (l === 'HIGH') return flag('flag-high', '↑ HIGH');
+  if (l === 'LOW') return flag('flag-low', '↓ LOW');
+  if (l === 'AMBER') return flag('flag-amber', '⚠ WATCH');
+  return flag('flag-amber', f);
+}
+
+function setCard(el, value, sub, flagStr) {
+  const vEl = el.querySelector('.card-value');
+  const sEl = el.querySelector('.card-sub');
+  const fEl = el.querySelector('.card-flag');
+  if (vEl) { vEl.textContent = value; vEl.classList.remove('loading'); }
+  if (sub !== undefined) {
+    if (!sEl) { const d = document.createElement('div'); d.className = 'card-sub'; d.textContent = sub; el.appendChild(d); }
+    else sEl.textContent = sub;
+  }
+  if (flagStr !== undefined && !fEl) {
+    el.insertAdjacentHTML('beforeend', flagHtml(flagStr));
+  }
+}
+
+async function fetchRoute(route) {
+  const r = await fetch(BASE + '?sheet=' + route);
+  return r.json();
+}
+
+async function loadSummary() {
+  try {
+    const d = await fetchRoute('summary');
+    if (!d.has_data) return;
+    const cards = document.querySelectorAll('#cards-summary .card');
+    setCard(cards[0], d.ml.newToday, `${d.ml.totalActive} total active`);
+    setCard(cards[1], d.stripe.salesToday, `${d.stripe.rolling7d} in 7d`);
+    setCard(cards[2], '$' + (d.stripe.revenueToday || 0));
+    setCard(cards[3], d.ml.totalPostAttrib, 'post-attribution');
+    setCard(cards[4], d.gads ? ('£' + Number(d.gads.spend).toFixed(2)) : '–', d.gads ? d.gads.date : '');
+
+    const aCards = document.querySelectorAll('#cards-ads .card');
+    const g = d.gads || {};
+    setCard(aCards[0], g.clicks ?? '–', g.date || '');
+    setCard(aCards[1], g.cpc ? '£' + Number(g.cpc).toFixed(2) : '–', '', g.cpc_flag);
+    setCard(aCards[2], g.ctr ? pct(g.ctr) : '–', '', g.ctr_flag);
+    setCard(aCards[3], g.cpl ? '£' + Number(g.cpl).toFixed(2) : '–', '', g.cpl_flag);
+    setCard(aCards[4], g.impressions ?? '–');
+
+    if (d.warnings && d.warnings.length) {
+      const wEl = document.getElementById('warnings');
+      wEl.innerHTML = d.warnings.map(w => `<div class="warning">${w}</div>`).join('');
+    }
+
+    const ts = d.last_updated ? new Date(d.last_updated * 1000).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '–';
+    document.getElementById('last-sync').textContent = 'Synced ' + ts;
+  } catch (e) { console.error('summary', e); }
+}
+
+async function loadFunnel() {
+  try {
+    const d = await fetchRoute('funnel');
+    if (!d.has_data) return;
+    const cards = document.querySelectorAll('#cards-funnel .card');
+    const home = d.pages?.['/'] || {};
+    const guide = d.pages?.['/get/guide/'] || {};
+    const conf = d.pages?.['/confirmed'] || {};
+    const dl = d.events?.guide_download || 0;
+
+    setCard(cards[0], home.views ?? 0, `${home.sessions ?? 0} sessions`);
+    setCard(cards[1], guide.views ?? 0, home.views ? (((guide.views||0)/home.views)*100).toFixed(0)+'% of homepage' : '');
+    setCard(cards[2], conf.views ?? 0, guide.views ? (((conf.views||0)/guide.views)*100).toFixed(0)+'% of /get/guide/' : '');
+    setCard(cards[3], dl, d.date || '');
+  } catch (e) { console.error('funnel', e); }
+}
+
+async function loadEmail() {
+  try {
+    const d = await fetchRoute('emailsequence');
+    const tbody = document.getElementById('tbody-email');
+    const meta = document.getElementById('email-meta');
+
+    if (!d.has_data || !d.steps || d.steps.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="4" class="na" style="padding:16px 12px;color:var(--muted);">No step data yet — check back after more subscribers complete the sequence.</td></tr>';
+      meta.textContent = d.automation_name ? `Automation: ${d.automation_name} · Enrolled: ${d.enrolled} · Active: ${d.active} · Completed: ${d.completed}` : '';
+      return;
+    }
+
+    tbody.innerHTML = d.steps.map(s => {
+      const or = s.open_rate !== null ? (s.open_rate * 100).toFixed(1) + '%' : '–';
+      const ctr = s.ctr !== null ? (s.ctr * 100).toFixed(1) + '%' : '–';
+      return `<tr>
+        <td>${s.name || '–'}</td>
+        <td>${s.sent ?? '–'}</td>
+        <td>${or}</td>
+        <td>${ctr}</td>
+      </tr>`;
+    }).join('');
+    meta.textContent = `${d.automation_name} · Enrolled: ${d.enrolled} · Active: ${d.active} · Completed: ${d.completed} · Updated: ${d.updated}`;
+  } catch (e) { console.error('email', e); }
+}
+
+async function loadSource() {
+  try {
+    const d = await fetchRoute('sourceperformance');
+    const tbody = document.getElementById('tbody-source');
+    const meta = document.getElementById('source-meta');
+    const startEl = document.getElementById('attrib-start');
+
+    if (startEl) startEl.textContent = d.attribution_start || '–';
+
+    if (!d.has_data || !d.entries || d.entries.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="4" class="na" style="padding:16px 12px;color:var(--muted);">No attributed subscribers yet.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = d.entries.map(e => {
+      const srcLabel = e.source || '(none)';
+      const dot = e.source === 'google' ? 'dot-green' : (e.source === 'test' ? 'dot-amber' : 'dot-amber');
+      return `<tr>
+        <td><span class="dot ${dot}"></span>${srcLabel}${e.medium ? ' / ' + e.medium : ''}</td>
+        <td>${e.subscribers}</td>
+        <td>${e.kit_buyers}</td>
+        <td>${e.take_rate_pct !== undefined ? e.take_rate_pct + '%' : '–'}</td>
+      </tr>`;
+    }).join('');
+
+    const noSrc = d.no_source_count || 0;
+    meta.textContent = `Total: ${d.total_subscribers} subscribers · ${noSrc} with no source (pre-attribution or direct)`;
+  } catch (e) { console.error('source', e); }
+}
+
+async function loadSearch() {
+  try {
+    const d = await fetchRoute('searchterms');
+    const tbody = document.getElementById('tbody-search');
+    const meta = document.getElementById('search-meta');
+
+    if (!d.has_data || !d.terms || d.terms.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="5" class="na" style="padding:16px 12px;color:var(--muted);">No search term data yet.</td></tr>';
+      return;
+    }
+
+    const sorted = [...d.terms].sort((a, b) => (b.clicks || 0) - (a.clicks || 0));
+    tbody.innerHTML = sorted.slice(0, 30).map(t => {
+      const ctr = t.ctr !== undefined ? Number(t.ctr).toFixed(1) + '%' : '–';
+      return `<tr>
+        <td style="max-width:300px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${t.query || t.searchTerm || t.term || '–'}</td>
+        <td>${t.clicks ?? '–'}</td>
+        <td>${t.impressions ?? '–'}</td>
+        <td>${ctr}</td>
+        <td>${t.conversions ?? t.conv ?? '–'}</td>
+      </tr>`;
+    }).join('');
+
+    meta.textContent = `${d.total_terms} terms · Pulled: ${d.date_pulled || '–'}`;
+  } catch (e) { console.error('search', e); }
+}
+
+async function loadAll() {
+  document.getElementById('last-sync').textContent = 'Refreshing…';
+  await Promise.all([loadSummary(), loadFunnel(), loadEmail(), loadSource(), loadSearch()]);
+}
+
+loadAll();
+</script>
+</body>
+</html>
