@@ -112,6 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         gtag("event", gaEvent);
         gtag("event", "lead_form_submit"); // unified primary conversion for Google Ads bidding
+        gtag("event", "conversion", { send_to: "AW-18057221634/Q2ssCPb7iZocEIKsraJD", value: 1.5, currency: "GBP" }); // GFS Lead Form Submit conversion action
 
         form.querySelectorAll(hideSelector).forEach((el) => { el.hidden = true; });
         submitBtn.hidden = true;
