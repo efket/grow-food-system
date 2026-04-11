@@ -111,6 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         gtag("event", gaEvent);
+        gtag("event", "lead_form_submit"); // unified primary conversion for Google Ads bidding
 
         form.querySelectorAll(hideSelector).forEach((el) => { el.hidden = true; });
         submitBtn.hidden = true;
